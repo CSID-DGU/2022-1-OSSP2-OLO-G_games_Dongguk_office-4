@@ -13,6 +13,7 @@ public abstract class Item:MonoBehaviour
     public int ItemType = -1;
     public string ItemName = null;
     public Sprite itemImage;
+    public int itemPrice;
    
     public abstract void OnClick();
    

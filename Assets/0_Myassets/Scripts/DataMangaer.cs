@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
+using UnityEngine.UI;
 
 
 public class DataMangaer : MonoBehaviour
@@ -11,7 +12,6 @@ public class DataMangaer : MonoBehaviour
     public GameObject testObj;
     public GameObject[] hotKeys;
 
-    public Sprite[] itemSprites;
     private void Awake()
     {
         userData = new UserData();
@@ -36,12 +36,11 @@ public class DataMangaer : MonoBehaviour
         {
             PlayerPrefs.SetInt("isNotFirstStart", 1);            
             userData.inventory = new Dictionary<int, int>();
+            userData.haveMoney = 20;
             saveData();
         }
-        else
-        {
-            loadData();
-        }        
+        loadData();
+
     }
 
     public void AddItem(int itemCode)
@@ -57,10 +56,14 @@ public class DataMangaer : MonoBehaviour
         
         saveData();
     }
-    public void ConsumItem(int itemCode,int amount)
+    public void ConsumItem(int itemCode)
     {
         //소비아이템일 경우
-        userData.inventory[itemCode]-=amount;
+        userData.inventory[itemCode]--;
+        if (userData.inventory[itemCode] <= 0)
+        {
+            userData.inventory.Remove(itemCode);
+        }
         saveData();
     }
     public void EquipItem(int itemCode)
@@ -76,9 +79,25 @@ public class DataMangaer : MonoBehaviour
     }
     public void loadData()
     {       
-        userData = JsonToOject(PlayerPrefs.GetString("playerData"));        
+        userData = JsonToOject(PlayerPrefs.GetString("playerData"));
+        AddItem(200);
+        userData.hotKeyItems[0] = 200;
+        userData.hotKeyItems[1] = 200;
+        userData.hotKeyItems[2] = 200;
+        userData.hotKeyItems[3] = 200;
+        for (int i = 0; i < hotKeys.Length; i++)
+        {
+            hotKeys[i].GetComponent<HotKey>().SetHotKey(userData.hotKeyItems[i]);
+            hotKeys[i].GetComponent<HotKey>().myDele = delTest;
+        }
+        InGameUIManager.instance.UpdateGold();
+        
     }
-
+    public void delTest()
+    {
+        Debug.Log("delTest");
+    }
+   
     string ObjectToJson(object obj)
     {
         return JsonConvert.SerializeObject(obj);
@@ -92,6 +111,7 @@ public class DataMangaer : MonoBehaviour
 
 public class UserData
 {
+    public int haveMoney;
     public int characterMaxHp;
     public int characterMaxMp;
 
@@ -103,3 +123,4 @@ public class UserData
     public int[] hotKeyItems = new int[4];  
    
 }
+

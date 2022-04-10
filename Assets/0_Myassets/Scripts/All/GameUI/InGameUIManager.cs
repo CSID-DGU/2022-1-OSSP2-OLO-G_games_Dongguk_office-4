@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 public class InGameUIManager : MonoBehaviour
 {
     public static InGameUIManager instance;
     Canvas canvas;
     Stack<GameObject> panelStack;
+
+    public TMP_Text goldTextBox;
 
     public GameObject inventoryPanel;
     private void Awake()
@@ -88,6 +91,11 @@ public class InGameUIManager : MonoBehaviour
     public void InventoryCloseBtn()
     {
         ClosePanel(inventoryPanel);
+    }
+
+    public void UpdateGold()
+    {
+        goldTextBox.text = "X "+DataMangaer.userData.haveMoney.ToString();
     }
     
 }
