@@ -10,6 +10,8 @@ public class DataMangaer : MonoBehaviour
     public static UserData userData;
     public GameObject testObj;
     public GameObject[] hotKeys;
+
+    public Sprite[] itemSprites;
     private void Awake()
     {
         userData = new UserData();
@@ -55,13 +57,15 @@ public class DataMangaer : MonoBehaviour
         
         saveData();
     }
-    public void ConsumItem()
+    public void ConsumItem(int itemCode,int amount)
     {
         //소비아이템일 경우
+        userData.inventory[itemCode]-=amount;
+        saveData();
     }
-    public void EquipItem()
+    public void EquipItem(int itemCode)
     {
-
+        saveData();
     }
 
 
@@ -88,6 +92,11 @@ public class DataMangaer : MonoBehaviour
 
 public class UserData
 {
+    public int characterMaxHp;
+    public int characterMaxMp;
+
+    public int characterBaseDamage;
+
     [SerializeField]
     public Dictionary<int,int> inventory = new Dictionary<int, int>();
 
