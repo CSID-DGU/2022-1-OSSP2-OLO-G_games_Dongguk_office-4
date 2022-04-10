@@ -85,6 +85,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         base.OnPlayerEnteredRoom(newPlayer);
      
     }
+
+    public GameObject characterNetworkInstantiater()
+    {
+        //네트워크 캐릭터 생성 관련
+
+        return null;
+    }
     
    
 

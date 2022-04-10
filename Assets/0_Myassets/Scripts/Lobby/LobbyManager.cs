@@ -8,8 +8,13 @@ public class LobbyManager : MonoBehaviour
     public GameObject dungeonEnteranceAskPanel;//?????????????? ???? ????
     public Stack<GameObject> panelStack;
     public GameObject consumptionItemShopPanel;
+    public CharacterController characterController;
+    public GameObject character;
+    public GameObject characterHand;
     private void Awake()
     {
+        characterController.Character = character;
+        characterController.hand = characterHand;
         if (FadeInOutManager.instance != null)
         {
             FadeInOutManager.instance.FadeIn();
@@ -27,8 +32,7 @@ public class LobbyManager : MonoBehaviour
     }
     void Start()
     {
-
-        
+                
     }
 
     // Update is called once per frame

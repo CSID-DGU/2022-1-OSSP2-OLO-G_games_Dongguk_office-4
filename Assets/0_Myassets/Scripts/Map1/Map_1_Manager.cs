@@ -7,6 +7,7 @@ using Photon;
 
 public class Map_1_Manager : MonoBehaviour
 {
+    public Transform[] characterStartPositions;
     
     private void Awake()
     {

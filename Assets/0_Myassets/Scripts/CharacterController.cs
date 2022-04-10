@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
-using Photon.Realtime;
+
 
 public class CharacterController : MonoBehaviour
 {
@@ -12,18 +11,7 @@ public class CharacterController : MonoBehaviour
 
     int left, right, up, down;//이동 관련 변수
     Vector3 characterMovePos;
-    private void Awake()
-    {
-        foreach(var i in GameObject.FindGameObjectsWithTag("Character"))
-        {
-            if (i.GetComponent<Photon.Pun.PhotonView>().IsMine)
-            {
-                Character = i;
-                hand = i.transform.Find("Hand").gameObject;
-                return;
-            }            
-        }
-    }
+  
     private void Start()
     {
         //Character = this.gameObject;
@@ -32,16 +20,8 @@ public class CharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (GetComponent<PhotonView>().IsMine)
-        {
-            CharacterMoveController();
-            handRotationController();
-        }
-        else
-        {
-            return;
-        }
-        
+        CharacterMoveController();
+        handRotationController();
     }
     void CharacterMoveController()
     {
@@ -115,7 +95,7 @@ public class CharacterController : MonoBehaviour
     }
     private void RotateTowards(Vector2 target)
     {
-        Vector2 direction = (target - (Vector2)transform.position).normalized;
+        Vector2 direction = (target - (Vector2)hand.transform.position).normalized;
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         
         hand.transform.rotation = Quaternion.Euler(Vector3.forward * (angle + offset));
