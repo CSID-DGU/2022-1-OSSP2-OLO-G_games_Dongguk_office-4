@@ -56,9 +56,14 @@ public class HotKey : MonoBehaviour
 
     public void SetHotKey(int itemCode)
     {
-        this.itemCode = itemCode;
-        itemImage.sprite = ItemDB.instance.items[itemCode].GetComponent<Item>().itemImage;
-        amountOfItemText.text = "X"+DataMangaer.userData.inventory[itemCode].ToString();
+        if (itemCode != -1)
+        {
+            this.itemCode = itemCode;
+            itemImage.sprite = ItemDB.instance.items[itemCode].GetComponent<Item>().itemImage;
+            amountOfItemText.text = "X" + DataMangaer.userData.inventory[itemCode].ToString();
+
+        }
+        
     }
   
    

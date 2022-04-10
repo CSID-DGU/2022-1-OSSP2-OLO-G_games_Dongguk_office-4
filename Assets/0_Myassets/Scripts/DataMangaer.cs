@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Newtonsoft.Json;
 using UnityEngine.UI;
 
 
@@ -14,6 +13,7 @@ public class DataMangaer : MonoBehaviour
 
     private void Awake()
     {
+       
         userData = new UserData();
         if (instance == null)
         {
@@ -27,15 +27,19 @@ public class DataMangaer : MonoBehaviour
     }
     public void DeleteAllPrefs()
     {
-        PlayerPrefs.DeleteAll();
+       
     }
 
     private void Start()
     {
-        if(PlayerPrefs.GetInt("isNotFirstStart") == 0)
+        if (!PlayerPrefs.HasKey("playerData"))
         {
-            PlayerPrefs.SetInt("isNotFirstStart", 1);            
+            Debug.Log("저장된 데이터 없음");
             userData.inventory = new Dictionary<int, int>();
+            for (int i = 0; i < userData.hotKeyItems.Length; i++)
+            {
+                userData.hotKeyItems[i] = -1;
+            }            
             userData.haveMoney = 20;
             saveData();
         }
@@ -78,17 +82,17 @@ public class DataMangaer : MonoBehaviour
         PlayerPrefs.SetString("playerData", ObjectToJson(userData));
     }
     public void loadData()
-    {       
+    {
+        Debug.Log("데이터 로드");
         userData = JsonToOject(PlayerPrefs.GetString("playerData"));
-        AddItem(200);
-        userData.hotKeyItems[0] = 200;
-        userData.hotKeyItems[1] = 200;
-        userData.hotKeyItems[2] = 200;
-        userData.hotKeyItems[3] = 200;
+        Debug.Log(PlayerPrefs.GetString("playerData"));
         for (int i = 0; i < hotKeys.Length; i++)
         {
-            hotKeys[i].GetComponent<HotKey>().SetHotKey(userData.hotKeyItems[i]);
-            hotKeys[i].GetComponent<HotKey>().myDele = delTest;
+            if (userData.hotKeyItems[i] != -1)
+            {
+                hotKeys[i].GetComponent<HotKey>().SetHotKey(userData.hotKeyItems[i]);
+                hotKeys[i].GetComponent<HotKey>().myDele = delTest;
+            }            
         }
         InGameUIManager.instance.UpdateGold();
         
@@ -100,11 +104,11 @@ public class DataMangaer : MonoBehaviour
    
     string ObjectToJson(object obj)
     {
-        return JsonConvert.SerializeObject(obj);
+        return JsonUtility.ToJson(obj);
     }
     UserData JsonToOject(string jsonData)
     {
-        return JsonConvert.DeserializeObject<UserData>(jsonData);
+        return JsonUtility.FromJson<UserData>(jsonData);
     }
 }
 

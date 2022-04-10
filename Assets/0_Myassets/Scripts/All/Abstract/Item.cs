@@ -14,6 +14,7 @@ public abstract class Item:MonoBehaviour
     public string ItemName = null;
     public Sprite itemImage;
     public int itemPrice;
+    public string description;
    
     public abstract void OnClick();
    

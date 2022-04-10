@@ -49,4 +49,5 @@ MonoBehaviour:
   ItemName: HpPortion
   itemImage: {fileID: 21300000, guid: d6469137f4208144bbfdb6c4651b3bcf, type: 3}
   itemPrice: 3
+  description: "hp\uB97C 30\uB9CC\uD07C \uD68C\uBCF5\uC2DC\uD0A8\uB2E4"
   hpRecoverAmount: 30
