@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Newtonsoft.Json;
 
 
 public class DataMangaer : MonoBehaviour
@@ -27,14 +28,14 @@ public class DataMangaer : MonoBehaviour
     }
     public void DeleteAllPrefs()
     {
-       
+        PlayerPrefs.DeleteAll();
     }
 
     private void Start()
     {
         if (!PlayerPrefs.HasKey("playerData"))
         {
-            Debug.Log("저장된 데이터 없음");
+            Debug.Log("?????? ?????? ????");
             userData.inventory = new Dictionary<int, int>();
             for (int i = 0; i < userData.hotKeyItems.Length; i++)
             {
@@ -47,22 +48,22 @@ public class DataMangaer : MonoBehaviour
 
     }
 
-    public void AddItem(int itemCode)
+    public void AddItem(int itemCode,int amount)
     {
         if (userData.inventory.ContainsKey(itemCode))
         {
-            userData.inventory[itemCode]++;
+            userData.inventory[itemCode]+=amount;
         }
         else
         {
-            userData.inventory.Add(itemCode, 1);
+            userData.inventory.Add(itemCode, amount);
         }
         
         saveData();
     }
     public void ConsumItem(int itemCode)
     {
-        //소비아이템일 경우
+        //???????????? ????
         userData.inventory[itemCode]--;
         if (userData.inventory[itemCode] <= 0)
         {
@@ -83,7 +84,7 @@ public class DataMangaer : MonoBehaviour
     }
     public void loadData()
     {
-        Debug.Log("데이터 로드");
+        Debug.Log("?????? ????");
         userData = JsonToOject(PlayerPrefs.GetString("playerData"));
         Debug.Log(PlayerPrefs.GetString("playerData"));
         for (int i = 0; i < hotKeys.Length; i++)
@@ -95,6 +96,7 @@ public class DataMangaer : MonoBehaviour
             }            
         }
         InGameUIManager.instance.UpdateGold();
+        Inventory.instance.SetItems();
         
     }
     public void delTest()
@@ -104,15 +106,21 @@ public class DataMangaer : MonoBehaviour
    
     string ObjectToJson(object obj)
     {
-        return JsonUtility.ToJson(obj);
+        return JsonConvert.SerializeObject(obj);
     }
     UserData JsonToOject(string jsonData)
     {
-        return JsonUtility.FromJson<UserData>(jsonData);
+        return JsonConvert.DeserializeObject<UserData>(jsonData);
+    }
+    public void AddGold(int amount)
+    {
+        userData.haveMoney += amount;
+        saveData();
+        InGameUIManager.instance.UpdateGold();
     }
 }
 
-
+[System.Serializable]
 public class UserData
 {
     public int haveMoney;
@@ -121,7 +129,7 @@ public class UserData
 
     public int characterBaseDamage;
 
-    [SerializeField]
+ 
     public Dictionary<int,int> inventory = new Dictionary<int, int>();
 
     public int[] hotKeyItems = new int[4];  

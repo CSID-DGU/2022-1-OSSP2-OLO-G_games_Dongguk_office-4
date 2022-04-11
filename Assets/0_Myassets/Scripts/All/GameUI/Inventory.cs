@@ -4,9 +4,34 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public void OnInventoryOpened()
+    public static Inventory instance;
+    public GameObject inventoryLayout;
+    public GameObject inventoryItemContent;
+    private void Awake()
     {
-        //called when inventory poped
-
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    public void SetItems()
+    {
+        for(int i = inventoryLayout.transform.childCount-1;i>=0;i--)
+        {
+            Destroy(inventoryLayout.transform.GetChild(i).gameObject);
+        }
+        //init itemStatus        
+        foreach(var i in DataMangaer.userData.inventory)
+        {
+            
+            GameObject item = Instantiate(inventoryItemContent, inventoryLayout.transform) as GameObject;
+            var itemSC = item.GetComponent<InventoryItemContent>();
+            itemSC.itemImage.sprite = ItemDB.instance.items[i.Key].GetComponent<Item>().itemImage;
+            itemSC.amoutOfItemText.text = "X" + i.Value.ToString();
+        }
     }
 }

@@ -445,6 +445,8 @@ MonoBehaviour:
   itemImage: {fileID: 283286721277824037}
   itemDescriptionBox: {fileID: 283286722222988181}
   itemPrictBox: {fileID: 283286722246543078}
+  amountOfItemBox: {fileID: 283286722487725962}
+  amountOfItem: 0
 --- !u!1 &283286722222988183
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,8 +618,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 57.9, y: -31.155}
-  m_SizeDelta: {x: 72.41, y: 25}
+  m_AnchoredPosition: {x: 7.3555, y: -31.155}
+  m_SizeDelta: {x: 173.4989, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &283286722246543077
 CanvasRenderer:
@@ -996,7 +998,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: X00
+  m_text: X0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b64ed06e2d5f6444d816766d4483f495, type: 2}
   m_sharedMaterial: {fileID: -8047574958172185967, guid: b64ed06e2d5f6444d816766d4483f495,
