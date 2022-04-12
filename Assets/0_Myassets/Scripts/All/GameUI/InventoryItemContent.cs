@@ -12,6 +12,7 @@ public class InventoryItemContent : MonoBehaviour
 
     public void OnItemClick()
     {
+        Debug.Log("inventory item content click");
         onClickAction?.Invoke();
     }
 

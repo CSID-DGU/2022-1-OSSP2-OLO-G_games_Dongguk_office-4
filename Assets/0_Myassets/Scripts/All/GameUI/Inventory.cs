@@ -7,6 +7,10 @@ public class Inventory : MonoBehaviour
     public static Inventory instance;
     public GameObject inventoryLayout;
     public GameObject inventoryItemContent;
+    private void OnEnable()
+    {
+        SetItems();
+    }
     private void Awake()
     {
         if(instance == null)
@@ -28,10 +32,17 @@ public class Inventory : MonoBehaviour
         foreach(var i in DataMangaer.userData.inventory)
         {
             
-            GameObject item = Instantiate(inventoryItemContent, inventoryLayout.transform) as GameObject;
+            GameObject item = Instantiate(inventoryItemContent, inventoryLayout.transform) as GameObject;          
             var itemSC = item.GetComponent<InventoryItemContent>();
+            //allocate hotkey
+            itemSC.onClickAction = HotkeyAllocate;
             itemSC.itemImage.sprite = ItemDB.instance.items[i.Key].GetComponent<Item>().itemImage;
             itemSC.amoutOfItemText.text = "X" + i.Value.ToString();
         }
+    }
+
+    public void HotkeyAllocate()
+    {
+        InGameUIManager.instance.StartBlinkHotKeyNumber();
     }
 }

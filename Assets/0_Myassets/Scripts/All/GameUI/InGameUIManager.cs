@@ -9,6 +9,8 @@ public class InGameUIManager : MonoBehaviour
     public static InGameUIManager instance;
     Canvas canvas;
     Stack<GameObject> panelStack;
+    public GameObject[] HotKeys;
+    public TMP_Text[] HotKeyNumberText;
 
     public TMP_Text goldTextBox;
 
@@ -97,5 +99,39 @@ public class InGameUIManager : MonoBehaviour
     {
         goldTextBox.text = "X "+DataMangaer.userData.haveMoney.ToString();
     }
-    
+
+    public void StartBlinkHotKeyNumber()
+    {
+        foreach(var i in HotKeys)
+        {
+            i.GetComponent<HotKey>().myDele = i.GetComponent<HotKey>().SetHotKey;
+        }
+        BlinkHotKeyCoroutine = StartBlinkHotKeyNumberCo();
+        StartCoroutine(BlinkHotKeyCoroutine);
+    }
+    IEnumerator BlinkHotKeyCoroutine;
+    IEnumerator StartBlinkHotKeyNumberCo()
+    {
+        while (true)
+        {
+            foreach(var i in HotKeyNumberText)
+            {
+                i.gameObject.SetActive(true);           
+            }
+            yield return new WaitForSeconds(0.2f);
+            foreach (var i in HotKeyNumberText)
+            {
+              
+
+                i.gameObject.SetActive(false);
+               
+            }
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+    public void StopBlinkHotKeyNumber()
+    {
+        StopCoroutine(BlinkHotKeyCoroutine);
+    }
+
 }

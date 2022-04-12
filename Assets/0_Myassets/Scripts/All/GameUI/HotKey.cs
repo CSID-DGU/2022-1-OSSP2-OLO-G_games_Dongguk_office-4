@@ -6,20 +6,26 @@ using UnityEngine.UI;
 public class HotKey : MonoBehaviour
 {
     public int itemCode;
-    public Action myDele;
+    public Action<int> myDele;
     public Image itemImage;
     public Text amountOfItemText;    
    
     public void HotKeyButton()
     {
+        myDele?.Invoke(itemCode);
+        if (itemCode == -1)
+        {
+            //if item not allocated, return
+            return;
+        }
         int itemAmount = DataMangaer.userData.inventory[itemCode];
-        myDele?.Invoke();
+        
         if (itemAmount > 0)
         {
-            Debug.Log("아이템 사용:" + itemCode);
+            Debug.Log("?????? ????:" + itemCode);
             DataMangaer.instance.ConsumItem(itemCode);
 
-            //여러 키에 같은 아이템 등록한 경우 때문에 모두 실행해줘야댐
+            //???? ???? ???? ?????? ?????? ???? ?????? ???? ????????????
             foreach(var i in DataMangaer.instance.hotKeys)
             {
                 i.GetComponent<HotKey>().UpdateAmountOfItem();
@@ -43,7 +49,7 @@ public class HotKey : MonoBehaviour
         amountOfItemText.text = "X"+ itemAmount.ToString();
         if (itemAmount <= 0)
         {
-            //아이템 소진 시 아이템 컬러 조절
+            //?????? ???? ?? ?????? ???? ????
             itemImage.color = new Color(1, 1, 1, 0.5f);
         
         }
@@ -56,6 +62,7 @@ public class HotKey : MonoBehaviour
 
     public void SetHotKey(int itemCode)
     {
+        Debug.Log("SetHotkey: " + itemCode.ToString());
         if (itemCode != -1)
         {
             this.itemCode = itemCode;

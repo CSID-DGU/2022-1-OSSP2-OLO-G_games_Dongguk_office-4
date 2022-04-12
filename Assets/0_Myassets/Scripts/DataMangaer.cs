@@ -92,17 +92,14 @@ public class DataMangaer : MonoBehaviour
             if (userData.hotKeyItems[i] != -1)
             {
                 hotKeys[i].GetComponent<HotKey>().SetHotKey(userData.hotKeyItems[i]);
-                hotKeys[i].GetComponent<HotKey>().myDele = delTest;
+             
             }            
         }
         InGameUIManager.instance.UpdateGold();
-        Inventory.instance.SetItems();
+        
         
     }
-    public void delTest()
-    {
-        Debug.Log("delTest");
-    }
+  
    
     string ObjectToJson(object obj)
     {
