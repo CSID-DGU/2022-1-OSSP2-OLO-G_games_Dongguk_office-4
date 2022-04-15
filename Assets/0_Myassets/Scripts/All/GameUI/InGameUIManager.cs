@@ -99,10 +99,12 @@ public class InGameUIManager : MonoBehaviour
     {
         goldTextBox.text = "X "+DataMangaer.userData.haveMoney.ToString();
     }
-
+    public bool isHotKeyAllocating = false;
+    public int nowSelectedItemCode = -1;
     public void StartBlinkHotKeyNumber()
     {
-        foreach(var i in HotKeys)
+        isHotKeyAllocating = true;
+        foreach (var i in HotKeys)
         {
             i.GetComponent<HotKey>().myDele = i.GetComponent<HotKey>().SetHotKey;
         }
@@ -132,6 +134,9 @@ public class InGameUIManager : MonoBehaviour
     public void StopBlinkHotKeyNumber()
     {
         StopCoroutine(BlinkHotKeyCoroutine);
+        
     }
+
+
 
 }

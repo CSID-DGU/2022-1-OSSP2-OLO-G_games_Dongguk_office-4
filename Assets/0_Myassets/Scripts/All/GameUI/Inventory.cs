@@ -36,6 +36,7 @@ public class Inventory : MonoBehaviour
             var itemSC = item.GetComponent<InventoryItemContent>();
             //allocate hotkey
             itemSC.onClickAction = HotkeyAllocate;
+            itemSC.itemCode = i.Key;
             itemSC.itemImage.sprite = ItemDB.instance.items[i.Key].GetComponent<Item>().itemImage;
             itemSC.amoutOfItemText.text = "X" + i.Value.ToString();
         }

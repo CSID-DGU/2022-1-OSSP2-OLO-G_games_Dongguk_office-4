@@ -12,18 +12,26 @@ public class HotKey : MonoBehaviour
    
     public void HotKeyButton()
     {
-        myDele?.Invoke(itemCode);
+
+        myDele?.Invoke(InGameUIManager.instance.nowSelectedItemCode);
+
         if (itemCode == -1)
         {
             //if item not allocated, return
             return;
         }
         int itemAmount = DataMangaer.userData.inventory[itemCode];
-        
-        if (itemAmount > 0)
+
+        if (InGameUIManager.instance.isHotKeyAllocating)
+        {
+            InGameUIManager.instance.isHotKeyAllocating = false;
+            myDele = null;
+        }
+        else if (itemAmount > 0&&InGameUIManager.instance.isHotKeyAllocating==false)
         {
             Debug.Log("?????? ????:" + itemCode);
             DataMangaer.instance.ConsumItem(itemCode);
+            Inventory.instance.SetItems();
 
             //???? ???? ???? ?????? ?????? ???? ?????? ???? ????????????
             foreach(var i in DataMangaer.instance.hotKeys)
@@ -31,6 +39,11 @@ public class HotKey : MonoBehaviour
                 i.GetComponent<HotKey>().UpdateAmountOfItem();
             }
            
+        }
+       
+        if (!DataMangaer.userData.inventory.ContainsKey(itemCode))
+        {
+            itemCode = -1;
         }
        
         
@@ -62,14 +75,19 @@ public class HotKey : MonoBehaviour
 
     public void SetHotKey(int itemCode)
     {
+        myDele = null;
         Debug.Log("SetHotkey: " + itemCode.ToString());
-        if (itemCode != -1)
+        if (DataMangaer.userData.inventory.ContainsKey(itemCode))
         {
-            this.itemCode = itemCode;
-            itemImage.sprite = ItemDB.instance.items[itemCode].GetComponent<Item>().itemImage;
-            amountOfItemText.text = "X" + DataMangaer.userData.inventory[itemCode].ToString();
+            if (DataMangaer.userData.inventory[itemCode] > 0)
+            {
+                this.itemCode = itemCode;
 
-        }
+                itemImage.sprite = ItemDB.instance.items[itemCode].GetComponent<Item>().itemImage;
+                amountOfItemText.text = "X" + DataMangaer.userData.inventory[itemCode].ToString();
+            }
+        }      
+        InGameUIManager.instance.StopBlinkHotKeyNumber();
         
     }
   
