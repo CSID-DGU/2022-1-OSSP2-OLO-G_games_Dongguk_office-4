@@ -12,9 +12,9 @@ public class DataMangaer : MonoBehaviour
     public GameObject testObj;
     public GameObject[] hotKeys;
 
+    public bool isInLobby = true;
     private void Awake()
-    {
-       
+    {       
         userData = new UserData();
         if (instance == null)
         {
@@ -23,8 +23,7 @@ public class DataMangaer : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        }
-        
+        }        
     }
     public void DeleteAllPrefs()
     {
@@ -45,7 +44,6 @@ public class DataMangaer : MonoBehaviour
             saveData();
         }
         loadData();
-
     }
 
     public void AddItem(int itemCode,int amount)
@@ -96,6 +94,7 @@ public class DataMangaer : MonoBehaviour
             }            
         }
         InGameUIManager.instance.UpdateGold();
+        InGameUIManager.instance.UpdateAllHotKeyInfo();
         
         
     }
@@ -126,6 +125,8 @@ public class UserData
 
     public int characterBaseDamage;
 
+    
+    public List<int> savedNpcList;
  
     public Dictionary<int,int> inventory = new Dictionary<int, int>();
 

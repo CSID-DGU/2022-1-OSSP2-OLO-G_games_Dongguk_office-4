@@ -10,7 +10,7 @@ public class ConsumptionShopManager : MonoBehaviour
     public TMP_Text sumOfPriceTextBox;
 
     //???????? ?????? ????
-    int[] itemArray = new int[] {200,201 };
+    int[] itemArray = new int[] {200, 201};
 
     List<GameObject> listOfItems;
     public GameObject ItemLayout;
@@ -80,14 +80,18 @@ public class ConsumptionShopManager : MonoBehaviour
                 DataMangaer.instance.AddItem(i.Key, i.Value);
             }            
             InGameUIManager.instance.UpdateGold();
-            Inventory.instance.SetItems();
+            if (Inventory.instance != null)
+            {
+                Inventory.instance.SetItems();
+            }            
             wantBuyItems.Clear();
             SetWantBuyItems();
             foreach(var i in listOfItems)
             {
                 i.GetComponent<ItemContent>().amountOfItem = 0;
                 i.GetComponent<ItemContent>().SetItemInfo();
-            }        
+            }
+            InGameUIManager.instance.UpdateAllHotKeyInfo();
             
         }
         else

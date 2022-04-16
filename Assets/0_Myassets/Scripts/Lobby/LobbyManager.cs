@@ -32,7 +32,7 @@ public class LobbyManager : MonoBehaviour
     }
     void Start()
     {
-                
+        DataMangaer.instance.isInLobby = true;           
     }
 
     // Update is called once per frame

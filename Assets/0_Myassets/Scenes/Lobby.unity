@@ -577,7 +577,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87868ab5f170d424887d73a78e55f924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyCode: 2
   itemCode: -1
+  itemAmount: 0
   itemImage: {fileID: 1429453117}
   amountOfItemText: {fileID: 730482765}
 --- !u!114 &46468433
@@ -1136,7 +1138,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87868ab5f170d424887d73a78e55f924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyCode: 3
   itemCode: -1
+  itemAmount: 0
   itemImage: {fileID: 1178890236}
   amountOfItemText: {fileID: 1103583827}
 --- !u!114 &212162571
@@ -8913,6 +8917,8 @@ MonoBehaviour:
   - {fileID: 1943510426}
   goldTextBox: {fileID: 1188660903}
   inventoryPanel: {fileID: 2006939990}
+  isHotKeyAllocating: 0
+  nowSelectedItemCode: -1
 --- !u!114 &273412394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9103,7 +9109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87868ab5f170d424887d73a78e55f924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyCode: 0
   itemCode: -1
+  itemAmount: 0
   itemImage: {fileID: 1517027721}
   amountOfItemText: {fileID: 431009019}
 --- !u!114 &321542784
@@ -13267,7 +13275,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: X 0
+  m_Text: X0
 --- !u!222 &431009020
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14356,7 +14364,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: X 0
+  m_Text: X0
 --- !u!222 &730482766
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14980,6 +14988,7 @@ MonoBehaviour:
   - {fileID: 2093482223}
   - {fileID: 46468430}
   - {fileID: 212162569}
+  isInLobby: 1
 --- !u!4 &969231512
 Transform:
   m_ObjectHideFlags: 0
@@ -15761,7 +15770,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: X 0
+  m_Text: X0
 --- !u!222 &1103583828
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -30004,7 +30013,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93f5e444d70a6481e806c67eef033f79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInLobby: 1
 --- !u!4 &1417443144
 Transform:
   m_ObjectHideFlags: 0
@@ -30715,7 +30723,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: X 0
+  m_Text: X0
 --- !u!222 &1574050667
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -34067,7 +34075,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87868ab5f170d424887d73a78e55f924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyCode: 1
   itemCode: -1
+  itemAmount: 0
   itemImage: {fileID: 1231122338}
   amountOfItemText: {fileID: 1574050666}
 --- !u!114 &2093482226

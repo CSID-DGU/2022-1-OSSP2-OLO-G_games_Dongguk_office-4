@@ -33,7 +33,6 @@ public class InGameUIManager : MonoBehaviour
         //when scene loaded, find camera for canvas render
         canvas.worldCamera = Camera.main;
 
-
         //when scene loaded, clear panelStack
         panelStack.Clear();
 
@@ -71,9 +70,10 @@ public class InGameUIManager : MonoBehaviour
             if (panelStack.Contains(panel))
             {
                 Stack<GameObject> temp = new Stack<GameObject>();
+                GameObject peekedPanel;
                 while (panelStack.Count > 0)
                 {
-                    GameObject peekedPanel = panelStack.Pop();
+                    peekedPanel = panelStack.Pop();
                     if(peekedPanel == panel)
                     {
                         peekedPanel.SetActive(false);
@@ -81,10 +81,11 @@ public class InGameUIManager : MonoBehaviour
                     else{
                         temp.Push(peekedPanel);   
                     }
-                    while (temp.Count > 0)
-                    {
-                        panelStack.Push(temp.Pop());
-                    }
+                   
+                }
+                while (temp.Count > 0)
+                {
+                    panelStack.Push(temp.Pop());
                 }
             }
         }
@@ -103,17 +104,23 @@ public class InGameUIManager : MonoBehaviour
     public int nowSelectedItemCode = -1;
     public void StartBlinkHotKeyNumber()
     {
-        isHotKeyAllocating = true;
+        
         foreach (var i in HotKeys)
         {
             i.GetComponent<HotKey>().myDele = i.GetComponent<HotKey>().SetHotKey;
         }
-        BlinkHotKeyCoroutine = StartBlinkHotKeyNumberCo();
-        StartCoroutine(BlinkHotKeyCoroutine);
+        
+        if (!isHotKeyAllocating)
+        {
+            BlinkHotKeyCoroutine = StartBlinkHotKeyNumberCo();
+            isHotKeyAllocating = true;
+            StartCoroutine(BlinkHotKeyCoroutine);
+        }
+       
     }
     IEnumerator BlinkHotKeyCoroutine;
     IEnumerator StartBlinkHotKeyNumberCo()
-    {
+    {     
         while (true)
         {
             foreach(var i in HotKeyNumberText)
@@ -133,8 +140,19 @@ public class InGameUIManager : MonoBehaviour
     }
     public void StopBlinkHotKeyNumber()
     {
-        StopCoroutine(BlinkHotKeyCoroutine);
+        if (isHotKeyAllocating)
+        {
+            StopCoroutine(BlinkHotKeyCoroutine);
+        }        
         
+    }
+
+    public void UpdateAllHotKeyInfo()
+    {
+        foreach(var i in HotKeys)
+        {
+            i.GetComponent<HotKey>().UpdateHotKeyInfo();
+        }
     }
 
 
