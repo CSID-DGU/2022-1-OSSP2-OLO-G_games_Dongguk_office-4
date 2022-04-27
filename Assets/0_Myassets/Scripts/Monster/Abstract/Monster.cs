@@ -54,10 +54,19 @@ public abstract class Monster : MonoBehaviour
         this.defense = Random.Range(defenseBoundMin, defenseBoundMax);
     }
 
-    protected void OnCollisionEnter2D(Collision2D collision)
+    protected void Update()
+    {
+        // Á×À½ Ã³¸® (OnHitÀ¸·Î ?)
+        if (this.curHp <= 0)
+        {
+            this.OnDie();
+        }
+    }
+
+    protected void OnTriggerEnter2D(Collider2D collision)
     {
         // if player hitbox (or bullet)
-        if (collision.collider.CompareTag("playerAttackHitbox"))
+        if (collision.CompareTag("playerAttackHitbox"))
         {
             // check whether dodge or hit
             // [TODO] consider player ¸íÁß·ü
@@ -70,4 +79,5 @@ public abstract class Monster : MonoBehaviour
     }
 
     protected abstract void OnHit(GameObject weaponObject);
+    protected abstract void OnDie();
 }

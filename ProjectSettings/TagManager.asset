@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CharacterHand
   - Character
+  - PlayerAttackHitbox
   layers:
   - Default
   - TransparentFX
