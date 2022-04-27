@@ -14,11 +14,13 @@ public abstract class Character : MonoBehaviourPun
 
     protected void Awake()
     {
-       
 
+        
     }
     protected void Start()
     {
+        CharacterController.instance.Character = this.gameObject;
+        CharacterController.instance.hand = hand;
         if (!PhotonNetwork.InRoom)
         {
             DataMangaer.instance.myCharacter = this.gameObject;
@@ -34,7 +36,7 @@ public abstract class Character : MonoBehaviourPun
         {
             DataMangaer.instance.myCharacter = this.gameObject;
         }
-
+        
        
     }
    
@@ -46,7 +48,7 @@ public abstract class Character : MonoBehaviourPun
         {
             return;
         }
-        Debug.Log("test");
+        
     }
 
 

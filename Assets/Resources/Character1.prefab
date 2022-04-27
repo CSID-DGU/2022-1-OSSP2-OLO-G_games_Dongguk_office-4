@@ -126,36 +126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce80cb67c7b8f6b468936ba2df5c9719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp:
-    currentCryptoKey: 1558303082
-    hiddenValue: 1558303072
-    inited: 1
-    fakeValue: 10
-    fakeValueActive: 1
-  maxMp:
-    currentCryptoKey: 1972527843
-    hiddenValue: 1972527846
-    inited: 1
-    fakeValue: 5
-    fakeValueActive: 1
-  maxStamina:
-    currentCryptoKey: 1215105890
-    hiddenValue: 1215105896
-    inited: 1
-    fakeValue: 10
-    fakeValueActive: 1
-  speed:
-    migratedVersion: 
-    currentCryptoKey: 1342705134
-    hiddenValue: 269306094
-    hiddenValueOldByte4:
-      b1: 0
-      b2: 0
-      b3: 0
-      b4: 0
-    inited: 1
-    fakeValue: 3
-    fakeValueActive: 1
   hand: {fileID: 3256979744139146351}
   isNeedRotation: 0
 --- !u!50 &3256979743524187297

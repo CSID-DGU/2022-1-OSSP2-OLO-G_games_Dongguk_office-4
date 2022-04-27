@@ -12,10 +12,12 @@ public class DataMangaer : MonoBehaviour
     public static UserData userData;
     public GameObject testObj;
     public GameObject[] hotKeys;
+    public string myNickName;
 
     public bool isInLobby = true;
     private void Awake()
-    {       
+    {
+        myNickName = PlayerPrefs.GetString("NickName");
         userData = new UserData();
         if (instance == null)
         {

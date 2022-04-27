@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -12,9 +13,14 @@ public class LobbyManager : MonoBehaviour
     public Stack<GameObject> panelStack;
     public GameObject consumptionItemShopPanel;
     public CharacterController characterController;
-    public GameObject character;
-    public GameObject characterHand;
 
+    public GameObject makeRoomPanel;
+    public TMP_InputField makeRoomNameInputField;
+    public GameObject waitingRoomPanel;
+
+
+
+    public TMP_Text serverStatusText;
 
 
     public int connectedRoomUserCounter;
@@ -22,9 +28,7 @@ public class LobbyManager : MonoBehaviour
 
 
     private void Awake()
-    {
-        characterController.Character = character;
-        characterController.hand = characterHand;
+    {        
         if (FadeInOutManager.instance != null)
         {
             FadeInOutManager.instance.FadeIn();
@@ -56,7 +60,15 @@ public class LobbyManager : MonoBehaviour
     public void AskEnterDungeon()
     {
         InGameUIManager.instance.PopUpPanel(dungeonEnteranceAskPanel);
+    
     }
+
+    public void ExitRoomEnterPanel()
+    {
+        dungeonEnteranceAskPanel.SetActive(false);
+        
+    }
+
     [PunRPC]
     public void Ready()
     {
@@ -66,9 +78,33 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
+    public void PopUpWaitingRoomPanel()
+    {
+        waitingRoomPanel.SetActive(true);
+        makeRoomPanel.SetActive(false);
+        dungeonEnteranceAskPanel.SetActive(false);
+    }
+    
+    public void PopUpMakeRoomPanelButton()
+    {
+        makeRoomPanel.SetActive(true);
+    }
+    public void CloseMakeRoomPanelButton()
+    {
+        makeRoomPanel.SetActive(false);
+    }
+    public void MakeRoom()
+    {
+        if (!string.IsNullOrEmpty(makeRoomNameInputField.text))
+        {
+            NetworkManager.instance.makeRoomByName(makeRoomNameInputField.text);
+            makeRoomPanel.SetActive(false);
+        }
+        
+    }
 
-    
-   
-    
-    
+
+
+
+
 }

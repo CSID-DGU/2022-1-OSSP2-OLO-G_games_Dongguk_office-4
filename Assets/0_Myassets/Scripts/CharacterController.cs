@@ -8,14 +8,28 @@ public class CharacterController : MonoBehaviour
     // Start is called before the first frame update
     public GameObject Character;
     public GameObject hand;
+    public static CharacterController instance;
 
-    int left, right, up, down;//이동 관련 변수
+    int left, right, up, down;//???? ???? ????
     Vector3 characterMovePos;
-  
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
+    }
     private void Start()
     {
         //Character = this.gameObject;
         DontDestroyOnLoad(this);
+        
     }
 
     private void FixedUpdate()
