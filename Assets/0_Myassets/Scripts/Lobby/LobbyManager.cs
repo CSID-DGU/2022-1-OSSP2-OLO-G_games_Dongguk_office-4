@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class LobbyManager : MonoBehaviour
 {
+    
+
     public static LobbyManager instance;
     public GameObject dungeonEnteranceAskPanel;//?????????????? ???? ????
     public Stack<GameObject> panelStack;
@@ -11,6 +14,13 @@ public class LobbyManager : MonoBehaviour
     public CharacterController characterController;
     public GameObject character;
     public GameObject characterHand;
+
+
+
+    public int connectedRoomUserCounter;
+
+
+
     private void Awake()
     {
         characterController.Character = character;
@@ -47,17 +57,16 @@ public class LobbyManager : MonoBehaviour
     {
         InGameUIManager.instance.PopUpPanel(dungeonEnteranceAskPanel);
     }
-    public void EnterOnlineDungeon()
+    [PunRPC]
+    public void Ready()
     {
-        if (FadeInOutManager.instance != null)
+        if (PhotonNetwork.IsMasterClient == true)
         {
-            FadeInOutManager.instance.FadeOut(nextSceneName: "map1");
-        }
-        else
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("map1");
+
         }
     }
+
+
     
    
     

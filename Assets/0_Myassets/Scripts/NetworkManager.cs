@@ -9,7 +9,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 {
     public static NetworkManager instance;
 
-    private string gameVersion = "1"; //게임 버전
+    private string gameVersion = "1"; //???? ????
 
     public GameObject MyCharacter;
     private void Awake()
@@ -34,8 +34,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         base.OnConnectedToMaster();
-        Debug.Log("마스터 서버와 연결됨");
-        Debug.Log("플레이어 수: " + PhotonNetwork.CountOfPlayersOnMaster);
+        Debug.Log("?????? ?????? ??????");
+        Debug.Log("???????? ??: " + PhotonNetwork.CountOfPlayersOnMaster);
         PhotonNetwork.JoinLobby();
         
     }
@@ -55,22 +55,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         
     }
 
-    public override void OnJoinRoomFailed(short returnCode, string message)
-    {
-        base.OnJoinRoomFailed(returnCode, message);
-        PhotonNetwork.CreateRoom("room2", new RoomOptions { MaxPlayers = 4, EmptyRoomTtl = 0 });
-    }
+    
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         base.OnJoinRoomFailed(returnCode, message);
         PhotonNetwork.CreateRoom("room2", new RoomOptions { MaxPlayers = 4, EmptyRoomTtl = 0 });
     }
-    public override void OnJoinedRoom()
-    {
-        base.OnJoinedRoom();
-        PhotonNetwork.LoadLevel("Map1");
-        Debug.Log("룸 조인 완료");
-    }
+    
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         base.OnRoomListUpdate(roomList);
@@ -88,12 +79,31 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public GameObject characterNetworkInstantiater()
     {
-        //네트워크 캐릭터 생성 관련
+        //???????? ?????? ???? ????
 
         return null;
     }
+
+    public void joinRoomByName(string roomName)
+    {
+        //join room by name
+        PhotonNetwork.JoinRoom(roomName);
+    }
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
+        Debug.Log("join room by name success");
+        PhotonNetwork.LoadLevel("Map1");
+        
+    }
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        base.OnJoinRoomFailed(returnCode, message);
+        
+    }
     
-   
+
+
 
 
 }

@@ -2,52 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CodeStage.AntiCheat.ObscuredTypes;
+using Photon.Pun;
 
-public abstract class Character : MonoBehaviour
+public abstract class Character : MonoBehaviourPun
 {
-    //???? ???????? ??????(????????)
-    
-    public ObscuredInt maxHp;
-    protected ObscuredInt nowHp;
-    public ObscuredInt maxMp;
-    protected ObscuredInt nowMp;
-    public ObscuredInt maxStamina;
-    protected ObscuredInt nowStamina;
-    public ObscuredFloat speed;
-
-    public GameObject hand;//???????? ?????? ???????? ??
-    public bool isNeedRotation;//?????? ?????? ?????? ???? ???????? ????
    
+    
+   
+    public GameObject hand;
+    public bool isNeedRotation;
 
-    void Start()
+    protected void Awake()
     {
-        RandomizeKey();
-        hand = GameObject.FindGameObjectWithTag("CharacterHand");
-        Revive();
-    }
-    void Revive()
-    {
-        nowHp = maxHp;
-        nowMp = maxMp;
-        nowStamina = maxStamina;
-    }
-    
-    void RandomizeKey()
-    {
-        //3?????? ?????? ?? ????(???? ????)
-        maxHp.RandomizeCryptoKey();
-        nowHp.RandomizeCryptoKey();
-        maxMp.RandomizeCryptoKey();
-        nowMp.RandomizeCryptoKey();
-        maxStamina.RandomizeCryptoKey();
-        nowStamina.RandomizeCryptoKey();
-        speed.RandomizeCryptoKey();
-        Invoke("RandomizeKey", 3);
-    }
-    
+       
 
+    }
+    protected void Start()
+    {
+        if (!PhotonNetwork.InRoom)
+        {
+            DataMangaer.instance.myCharacter = this.gameObject;
+            FollowingCamera.instance.targetCharacterTransform = this.transform;
+            return;
+        }
+        if (!photonView.IsMine)
+        {
+
+            return;
+        }
+        else
+        {
+            DataMangaer.instance.myCharacter = this.gameObject;
+        }
+
+       
+    }
+   
     
     
+    protected void FixedUpdate()
+    {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+        Debug.Log("test");
+    }
+
+
+
+
     public abstract void SpecialBehavior();//???????????? ?????? ?????? ???? ????
 
     

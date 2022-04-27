@@ -6,7 +6,8 @@ using Newtonsoft.Json;
 
 
 public class DataMangaer : MonoBehaviour
-{
+{    
+    public GameObject myCharacter;
     public static DataMangaer instance;
     public static UserData userData;
     public GameObject testObj;
@@ -34,6 +35,7 @@ public class DataMangaer : MonoBehaviour
     {
         if (!PlayerPrefs.HasKey("playerData"))
         {
+            userData.selectedCharacterName = "Character1";
             Debug.Log("?????? ?????? ????");
             userData.inventory = new Dictionary<int, int>();
             for (int i = 0; i < userData.hotKeyItems.Length; i++)
@@ -119,9 +121,14 @@ public class DataMangaer : MonoBehaviour
 [System.Serializable]
 public class UserData
 {
+    public string selectedCharacterName;
     public int haveMoney;
     public int characterMaxHp;
     public int characterMaxMp;
+    public int characterNowHp;
+    public int characterNowMp;
+    public int characterNowEquipWeaspone;
+    
 
     public int characterBaseDamage;
 
