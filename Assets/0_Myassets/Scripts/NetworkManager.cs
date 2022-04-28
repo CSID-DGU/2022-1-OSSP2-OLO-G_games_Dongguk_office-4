@@ -105,6 +105,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                         buttonScript.maxPlayerCount = i.MaxPlayers;
                         buttonScript.nowPlayerCount = i.PlayerCount;
                         buttonScript.roomInfoText.text = i.Name + "\n" + i.PlayerCount.ToString() + "/" + i.MaxPlayers.ToString();
+                        if (!i.IsOpen)
+                        {
+                            Debug.Log("playing roomg");
+                            buttonScript.roomInfoText.text += "\n[playing]";
+                        }
                     }
                 }
                 if (!isAlreadyShow)
@@ -116,6 +121,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                     buttonScript.maxPlayerCount = i.MaxPlayers;
                     buttonScript.nowPlayerCount = i.PlayerCount;
                     buttonScript.roomInfoText.text = i.Name + "\n" + i.PlayerCount.ToString() + "/" + i.MaxPlayers.ToString();
+                    if (!i.IsOpen)
+                    {
+                        Debug.Log("playing roomg");
+                        buttonScript.roomInfoText.text += "\n[playing]";
+                    }
                 }
                
             }

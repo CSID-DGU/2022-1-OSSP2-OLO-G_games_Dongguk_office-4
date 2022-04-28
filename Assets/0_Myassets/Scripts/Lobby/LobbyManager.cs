@@ -80,9 +80,20 @@ public class LobbyManager : MonoBehaviour
 
     public void PopUpWaitingRoomPanel()
     {
-        waitingRoomPanel.SetActive(true);
-        makeRoomPanel.SetActive(false);
-        dungeonEnteranceAskPanel.SetActive(false);
+        if (waitingRoomPanel != null)
+        {
+            waitingRoomPanel.SetActive(true);
+        }
+        if (makeRoomPanel != null)
+        {
+            makeRoomPanel.SetActive(false);
+        }
+        if (dungeonEnteranceAskPanel != null)
+        {
+            dungeonEnteranceAskPanel.SetActive(false);
+
+        }
+
     }
     
     public void PopUpMakeRoomPanelButton()

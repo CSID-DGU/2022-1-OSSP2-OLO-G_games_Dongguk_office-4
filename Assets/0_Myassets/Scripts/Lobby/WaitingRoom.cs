@@ -91,7 +91,9 @@ public class WaitingRoom : MonoBehaviour
         
         if (Photon.Pun.PhotonNetwork.IsMasterClient)
         {
-            foreach(var i in userInfoList)
+            
+            
+            foreach (var i in userInfoList)
             {
                 if (!string.IsNullOrEmpty(i.userID) && i.isReady == false&&i.userID!=Photon.Pun.PhotonNetwork.LocalPlayer.UserId)
                 {
@@ -99,6 +101,7 @@ public class WaitingRoom : MonoBehaviour
                 }
             }
             //loadLevel;
+            Photon.Pun.PhotonNetwork.CurrentRoom.IsOpen = false;
             NetworkManager.instance.LoadNetworkLevel("map1");
             Debug.Log("gameStart!!");
         }
