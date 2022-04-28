@@ -7,6 +7,7 @@ using Photon.Realtime;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
+
     public static NetworkManager instance;
     public GameObject roomListContent;
     public GameObject joinRoomButton;
@@ -114,7 +115,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public void makeRoomByName(string roomName)
     {
-        PhotonNetwork.CreateRoom(roomName, new RoomOptions { MaxPlayers = 4, EmptyRoomTtl = 0 });
+        PhotonNetwork.CreateRoom(roomName, new RoomOptions { MaxPlayers = 4, EmptyRoomTtl = 0,PublishUserId=true });
     }
 
     public void joinRoomByName(string roomName)
@@ -167,28 +168,42 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void UpdateCountOfPlayerInRoomInfo()
     {
-        int a = PhotonNetwork.CountOfPlayersInRooms;
+
         joinedPlayerList = PhotonNetwork.PlayerList;
         foreach (var i in joinedPlayerList)
         {
             Debug.Log(i.ActorNumber + "th player name:" + i.NickName);
         }
-        Debug.Log("countOfPlayerInRoom=" + a.ToString());
+        
+        WaitingRoom.instance.SetWaitingRoomStatus();
         
     }
 
     
     public void GameReadyInWaitingRoom()
     {
-        photonView.RPC("setReadyStatisInWaitingRoom", RpcTarget.All, PhotonNetwork.NickName);
+        photonView.RPC("setReadyStatisInWaitingRoom", RpcTarget.All, PhotonNetwork.LocalPlayer.UserId);
     }
 
     [PunRPC]
     public void setReadyStatisInWaitingRoom(string playerName)
     {
+        WaitingRoom.instance.userInfoDic[playerName].transform.GetChild(0).gameObject.SetActive(true);
+    }
+    public void exitRoom()
+    {
+        photonView.RPC("exitPlayer", RpcTarget.All, PhotonNetwork.LocalPlayer.UserId);
+        PhotonNetwork.LeaveRoom();
         
     }
-
+    [PunRPC]
+    public void exitPlayer(string playerName)
+    {
+        Debug.Log("user has been exited");
+        WaitingRoom.instance.userInfoDic[playerName].transform.GetChild(0).gameObject.SetActive(false);
+        WaitingRoom.instance.userInfoDic[playerName].gameObject.SetActive(false);
+        WaitingRoom.instance.userInfoDic.Remove(playerName);
+    }
 
 
 }

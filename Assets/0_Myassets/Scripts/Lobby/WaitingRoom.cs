@@ -9,7 +9,7 @@ public class WaitingRoom : MonoBehaviour
     public TMP_Text ReadyText;
     public Dictionary<string,TMP_Text> userInfoDic;
     public TMP_Text[] joinedUserInfoTextList;
-
+    public Button readyButton;
 
     private void Awake()
     {
@@ -36,24 +36,31 @@ public class WaitingRoom : MonoBehaviour
     public void SetWaitingRoomStatus()
     {
         int index = 0;
+
+        userInfoDic.Clear();
         foreach(var i in NetworkManager.instance.joinedPlayerList)
         {
             joinedUserInfoTextList[index].gameObject.SetActive(true);
             joinedUserInfoTextList[index].text = i.NickName;
-            userInfoDic.Add(i.NickName, joinedUserInfoTextList[index++]);
+            userInfoDic.Add(i.UserId, joinedUserInfoTextList[index++]);
+            Debug.Log("added uid = " + i.UserId);
         }
 
     }
 
     public void ExitRoom()
     {
-        NetworkManager.instance.LeaveRoom();
+        readyButton.interactable = true;
+        NetworkManager.instance.exitRoom();
+        //NetworkManager.instance.LeaveRoom();
         LobbyManager.instance.waitingRoomPanel.SetActive(false);
     }
     public void ReadyButton()
     {
+        readyButton.interactable = false;
         NetworkManager.instance.GameReadyInWaitingRoom();
         
     }
     
 }
+
