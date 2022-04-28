@@ -21,14 +21,14 @@ public class CharacterController : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+     
         }
         
     }
     private void Start()
     {
         //Character = this.gameObject;
-        DontDestroyOnLoad(this);
+        
         
     }
 

@@ -16,10 +16,7 @@ public class Character1 : Character
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+ 
     void FixedUpdate()
     {
         base.FixedUpdate();

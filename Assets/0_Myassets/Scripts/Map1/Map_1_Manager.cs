@@ -19,7 +19,8 @@ public class Map_1_Manager : MonoBehaviour
     }
     void Start()
     {
-        Photon.Pun.PhotonNetwork.Instantiate("Character1", new Vector3(0, 0, 0), Quaternion.identity, 0);
+        GameObject myCharacter = Photon.Pun.PhotonNetwork.Instantiate("Character1", Vector3.zero, Quaternion.identity, 0) as GameObject;
+        myCharacter.transform.position = characterStartPositions[DataMangaer.instance.inGameIndex].position;
     }
     // Update is called once per frame
     void Update()

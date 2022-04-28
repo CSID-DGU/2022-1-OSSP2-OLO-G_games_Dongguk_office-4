@@ -37,6 +37,7 @@ public class FollowingCamera : MonoBehaviour
 
     void FixedUpdate()
     {
+        
         if (targetCharacterTransform != null)
         {
             Vector3 targetPosition = targetCharacterTransform.TransformPoint(new Vector3(0, 0, -10));

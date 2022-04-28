@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 public class DataMangaer : MonoBehaviour
 {    
     public GameObject myCharacter;
+    public int inGameIndex;
     public static DataMangaer instance;
     public static UserData userData;
     public GameObject testObj;
@@ -17,6 +18,7 @@ public class DataMangaer : MonoBehaviour
     public bool isInLobby = true;
     private void Awake()
     {
+        Application.runInBackground = true;
         myNickName = PlayerPrefs.GetString("NickName");
         userData = new UserData();
         if (instance == null)
