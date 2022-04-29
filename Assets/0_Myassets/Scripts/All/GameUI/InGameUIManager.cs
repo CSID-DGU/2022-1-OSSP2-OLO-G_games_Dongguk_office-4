@@ -42,7 +42,8 @@ public class InGameUIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ClosePanel();
+            //deprecate
+            //ClosePanel();
         }
     }
     public void PopUpInventoryPanel()
@@ -54,7 +55,7 @@ public class InGameUIManager : MonoBehaviour
     {
         panel.SetActive(true);
         panelStack.Push(panel);
-        Debug.Log(panelStack.Count);
+       
     }
     public void ClosePanel(GameObject panel = null)
     {        

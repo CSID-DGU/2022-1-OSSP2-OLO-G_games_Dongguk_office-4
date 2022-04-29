@@ -7,6 +7,9 @@ using TMPro;
 public class StartGame : MonoBehaviour
 {
     public TMP_Text pressKeyToStart;
+    bool hasNickName;
+    public GameObject createNickNamePanel;
+    public TMP_InputField nickNameInputField;
     private void Awake()
     {
         if (FadeInOutManager.instance != null)
@@ -15,9 +18,20 @@ public class StartGame : MonoBehaviour
         }
         StartCoroutine(BlankKeyToStartTextCo());
     }
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("NickName"))
+        {
+            hasNickName = true;
+        }
+        else
+        {
+            createNickNamePanel.SetActive(true);
+        }
+    }
     private void Update()
     {
-        if (Input.anyKey)
+        if (Input.anyKey&&hasNickName)
         {
             FadeInOutManager.instance.FadeOut(nextSceneName: "Lobby");
         }
@@ -38,5 +52,14 @@ public class StartGame : MonoBehaviour
             }
         }
         
+    }
+    public void CreateNick()
+    {
+        if (!string.IsNullOrEmpty(nickNameInputField.text)) {
+
+            hasNickName = true;
+            PlayerPrefs.SetString("NickName", nickNameInputField.text);
+            createNickNamePanel.SetActive(false);
+        }
     }
 }
