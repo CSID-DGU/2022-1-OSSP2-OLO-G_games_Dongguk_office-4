@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8218281348229471009}
   - component: {fileID: 8218281348229471008}
   m_Layer: 0
-  m_Name: Test Monster
+  m_Name: AC-TestMonster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
