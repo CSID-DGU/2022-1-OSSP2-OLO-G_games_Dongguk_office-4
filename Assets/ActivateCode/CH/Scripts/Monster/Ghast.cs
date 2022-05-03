@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 namespace ActiveCode.CH
 {
@@ -12,6 +14,7 @@ namespace ActiveCode.CH
 
         protected Rigidbody2D rb;
         protected SpriteRenderer sr;
+        protected PhotonView pv;
 
         protected override void Awake()
         {
@@ -19,6 +22,7 @@ namespace ActiveCode.CH
 
             this.rb = this.GetComponent<Rigidbody2D>();
             this.sr = this.GetComponent<SpriteRenderer>();
+            this.pv = this.GetComponent<PhotonView>();
         }
 
         protected override void Update()
@@ -47,9 +51,15 @@ namespace ActiveCode.CH
             Vector2 dir = (this.target.transform.position - this.transform.position).normalized;
             Vector2 velocity = this.speed * Time.deltaTime * dir;
 
-            sr.flipX = dir.x > 0;
+            this.pv.RPC("FlipX", RpcTarget.AllBuffered, dir.x > 0);
 
             this.rb.MovePosition(this.rb.position + velocity);
+        }
+
+        [PunRPC]
+        protected void FlipX(bool flipX)
+        {
+            this.sr.flipX = flipX;
         }
 
         protected override void OnDie()
