@@ -7,13 +7,14 @@
 //    // Start is called before the first frame update
 //    void Start()
 //    {
-        
+//        SaveData save;
+//        AchievementData achieve;
 //    }
 
 //    // Update is called once per frame
 //    void Update()
 //    {
-        
+//        checkAchievement()
 //    }
 //}
 
@@ -26,7 +27,10 @@
 
 //public class SaveData
 //{
-//    [SerializeField] public int MaxLevel;
+//    [SerializeField] public int MaxStage;
+//    [SerializeField] public bool Stage_1;
+//    [SerializeField] public bool Stage_3;
+//    [SerializeField] public bool Stage_5;
 
 //    [SerializeField] public bool unlockScoreN;
 //    [SerializeField] public int pointScoreN;
@@ -36,8 +40,7 @@
 
 //    public SaveData()
 //    {
-//        MaxLevel = 0;
-//        PlayCount = 0;
+//        MaxStage = 0;
 //        unlockScoreN = false;
 //        pointScoreN = 0;
 //        unlockPlayN = false;
@@ -49,15 +52,9 @@
 //{
 //    if (gameManager.play)
 //    {
-//        checkMaxScore();
-//        checkDefault();
+//        checkMaxStage();
 //        checkScoreN();
 //        checkPlayN();
-//        checkBoostNInAGame();
-//        checkScoreN2();
-//        checkExactN();
-//        checkNoBoostTillN();
-//        checkScoreN3();
 //        checkBoostN2InAGame();
 //        if (hasModified)
 //        {
@@ -94,8 +91,28 @@
 //    {
 //        if (AchievementData.PlayN <= saveData.pointPlayN)
 //        {
-//            Achieve(out saveData.unlockPlayN, "Play 100 Times");
+//            Achieve(out saveData.unlockPlayN, "Kill");
 //        }
+//    }
+//}
+//public void checkMaxStage()
+//{
+//    //도전과제 달성률 확인용
+//    if (saveData.MaxStage < saveData.MaxStage)
+//    {
+//        saveData.MaxStage = saveData.MaxStage;
+//    }
+//    if (saveData.MaxStage == 1)
+//    {
+//        Achieve(out saveData.Stage_1, "Welcome to the world!");
+//    }
+//    if (saveData.MaxStage == 3)
+//    {
+//        Achieve(out saveData.Stage_3, "Eecape from Beginner");
+//    }
+//    if (saveData.MaxStage == 5)
+//    {
+//        Achieve(out saveData.Stage_5, "Approach to the boss");
 //    }
 //}
 
