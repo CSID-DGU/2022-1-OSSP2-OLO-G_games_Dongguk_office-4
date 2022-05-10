@@ -125,6 +125,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce80cb67c7b8f6b468936ba2df5c9719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nowSelectedWeapone: 0
+  nowEquipedWeapones:
+  - {fileID: 0}
+  - {fileID: 0}
   hand: {fileID: 3256979744139146351}
   isNeedRotation: 0
 --- !u!50 &3256979743524187297

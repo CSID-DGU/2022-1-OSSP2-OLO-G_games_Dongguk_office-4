@@ -6,8 +6,8 @@ using Photon.Pun;
 
 public abstract class Character : MonoBehaviourPun
 {
-   
-    
+    public int nowSelectedWeapone;
+    public GameObject[] nowEquipedWeapones; 
    
     public GameObject hand;
     public bool isNeedRotation;
@@ -42,9 +42,51 @@ public abstract class Character : MonoBehaviourPun
     }
     protected void Update()
     {
-        
+        if (!photonView.IsMine) return;
+        //when player input 'k' weapon swap.
+        if (Input.GetKey(KeyCode.T))
+        {
+            Debug.Log("swap weaspone");
+            SwapWeapone();
+        }
     }
 
+    protected void SwapWeapone()
+    {
+        if (nowSelectedWeapone == 0)
+        {
+            nowSelectedWeapone = 1;
+            if (nowEquipedWeapones[1] != null)
+            {
+                nowEquipedWeapones[1].SetActive(true);
+            }
+            else
+            {
+                return;
+            }
+            if (nowEquipedWeapones[0] != null)
+            {
+                nowEquipedWeapones[0].SetActive(false);
+            }
+            
+        }
+        else
+        {
+            nowSelectedWeapone = 0;
+            if (nowEquipedWeapones[0] != null)
+            {
+                nowEquipedWeapones[0].SetActive(true);
+            }
+            else
+            {
+                return;
+            }
+            if (nowEquipedWeapones[1] != null)
+            {
+                nowEquipedWeapones[1].SetActive(false);
+            }
+        }
+    }
 
 
     protected void FixedUpdate()
@@ -84,7 +126,7 @@ public abstract class Character : MonoBehaviourPun
         }
 
 
-        if (Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1.0f)).x > this.transform.position.x)
+        if (Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f)).x > this.transform.position.x)
         {
             
             offset = 0;
@@ -98,7 +140,7 @@ public abstract class Character : MonoBehaviourPun
                 this.GetComponent<Animator>().SetFloat("moveSpeed", -1.0f);
             }
         }
-        else if (Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1.0f)).x < this.transform.position.x)
+        else if (Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f)).x < this.transform.position.x)
         {
            
             offset = 180;
@@ -127,8 +169,18 @@ public abstract class Character : MonoBehaviourPun
         this.transform.Translate(2.0f * Time.fixedDeltaTime * characterMovePos);
     }
 
-
-    public abstract void SpecialBehavior();//???????????? ?????? ?????? ???? ????
-
     
+    public abstract void SpecialBehavior();//???????????? ?????? ?????? ???? ????
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.tag == "DroppedWeapone")
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Debug.Log("pick up item");
+                collision.gameObject.GetComponent<DroppedItem>().PickUpItem();
+            }
+        }
+    }
+
 }
