@@ -19,11 +19,7 @@ public abstract class DroppedItem : MonoBehaviourPun
         
     }
 
-    abstract void PickUpItem();
-    {
-        Debug.Log("item" + itemCode.ToString() + " pick uped");
-        photonView.RPC("DestroyItem", RpcTarget.All);
-    }
+   
 
     [PunRPC]
     protected void DestroyItem()

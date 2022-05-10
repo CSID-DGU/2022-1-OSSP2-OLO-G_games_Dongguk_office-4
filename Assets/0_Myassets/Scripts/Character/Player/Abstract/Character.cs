@@ -178,7 +178,7 @@ public abstract class Character : MonoBehaviourPun
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Debug.Log("pick up item");
-                collision.gameObject.GetComponent<DroppedItem>().PickUpItem();
+                
             }
         }
     }

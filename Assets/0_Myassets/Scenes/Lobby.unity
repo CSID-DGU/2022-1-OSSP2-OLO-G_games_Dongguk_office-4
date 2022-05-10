@@ -9456,10 +9456,10 @@ GameObject:
   m_Component:
   - component: {fileID: 312305130}
   - component: {fileID: 312305129}
-  - component: {fileID: 312305128}
   - component: {fileID: 312305127}
   - component: {fileID: 312305126}
   - component: {fileID: 312305125}
+  - component: {fileID: 312305131}
   m_Layer: 0
   m_Name: DroppedWeapone
   m_TagString: DroppedWeapone
@@ -9522,20 +9522,6 @@ MonoBehaviour:
   sceneViewId: 3
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &312305128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 312305124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 109479a54d0d3481686e0ac77c48a237, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemCode: 0
-  weaponImage: {fileID: 0}
 --- !u!212 &312305129
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9603,6 +9589,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &312305131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312305124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4af90734fb6e941eab3eb78bcebb3774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &315124415
 GameObject:
   m_ObjectHideFlags: 0
