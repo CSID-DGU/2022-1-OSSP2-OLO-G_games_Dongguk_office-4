@@ -11,7 +11,7 @@ public abstract class Character : MonoBehaviourPun
    
     public GameObject hand;
     public bool isNeedRotation;
-
+    public float speed = 3;
     protected void Awake()
     {
         
@@ -49,6 +49,16 @@ public abstract class Character : MonoBehaviourPun
             Debug.Log("swap weaspone");
             SwapWeapone();
         }
+        CharacterMoveController();
+    }
+    protected void FixedUpdate()
+    {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
+     
     }
 
     protected void SwapWeapone()
@@ -86,18 +96,13 @@ public abstract class Character : MonoBehaviourPun
                 nowEquipedWeapones[1].SetActive(false);
             }
         }
+
+
+       
     }
 
 
-    protected void FixedUpdate()
-    {
-        if (!photonView.IsMine)
-        {
-            return;
-        }
-        CharacterMoveController();
-        
-    }
+    
 
     int left, right, up, down;
     float offset = 0f;
@@ -160,13 +165,17 @@ public abstract class Character : MonoBehaviourPun
         characterMovePos = new Vector3(left + right, up + down, 0).normalized;
         if (characterMovePos != Vector3.zero)
         {
+            this.GetComponent<Rigidbody2D>().velocity = characterMovePos * speed;
+            //this.GetComponent<Rigidbody2D>().AddForce(120 * characterMovePos * speed);
             this.GetComponent<Animator>().SetBool("isMove", true);
         }
         else
         {
+            this.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             this.GetComponent<Animator>().SetBool("isMove", false);
         }
-        this.transform.Translate(2.0f * Time.fixedDeltaTime * characterMovePos);
+        
+        //this.transform.Translate();
     }
 
     
