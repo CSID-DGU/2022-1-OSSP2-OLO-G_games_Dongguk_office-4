@@ -15,7 +15,12 @@ public class _200_HpPotion : Item
    
     public override void OnClick()
     {
-        Debug.Log("hpÆ÷¼Ç");
+        Debug.Log("hpí¬ì…˜");
        
+    }
+
+    protected override void OnPickUpItem()
+    {
+        throw new System.NotImplementedException();
     }
 }

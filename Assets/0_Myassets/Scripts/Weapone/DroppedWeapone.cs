@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class DroppedWeapone : DroppedItem
 {
+    protected override void OnPickUpItem()
+    {
+        //equip
+    }
+
     // Start is called before the first frame update
     void Start()
     {

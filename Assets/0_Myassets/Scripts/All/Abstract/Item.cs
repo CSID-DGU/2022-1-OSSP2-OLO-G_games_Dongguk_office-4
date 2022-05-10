@@ -2,20 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 
-
-public abstract class Item:MonoBehaviour
+public abstract class Item: MonoBehaviourPun
 {
-    //0:¹«±â,  1:¹æ¾î±¸,   2:¼Òºñ
-
+    //0:ë¬´ê¸°,  1:ë°©ì–´êµ¬,   2:ì†Œë¹„
+    public bool isOnGround = false;
     public int itemCode = -1;
-    public int ItemType = -1;
+   
     public string ItemName = null;
     public Sprite itemImage;
     public int itemPrice;
     public string description;
    
     public abstract void OnClick();
-   
+
+    public void PickUpItem()
+    {
+        OnPickUpItem();
+        photonView.RPC("DestroyItem", RpcTarget.All);
+    }
+
+    [PunRPC]
+    protected void DestroyItem()
+    {
+        Destroy(this.gameObject);
+    }
+    protected abstract void OnPickUpItem();
 }

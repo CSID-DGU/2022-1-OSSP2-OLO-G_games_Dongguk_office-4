@@ -10,6 +10,11 @@ public class _201_MpPotion : Item
         
     }
 
+    protected override void OnPickUpItem()
+    {
+        throw new System.NotImplementedException();
+    }
+
     // Start is called before the first frame update
     void Start()
     {

@@ -21,9 +21,8 @@ public abstract class DroppedItem : MonoBehaviourPun
 
    
 
-    [PunRPC]
-    protected void DestroyItem()
-    {
-        Destroy(this.gameObject);
-    }
+    protected abstract void OnPickUpItem();
+   
+
+   
 }
