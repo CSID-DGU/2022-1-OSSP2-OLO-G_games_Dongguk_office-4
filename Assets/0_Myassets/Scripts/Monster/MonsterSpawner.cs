@@ -8,12 +8,16 @@ public class MonsterSpawner : MonoBehaviourPun
 {
     [SerializeField]
     string monsterNameInResources;
+    private void Awake()
+    {
+        
+    }
     void Start()
     {
         if (PhotonNetwork.IsMasterClient)
         {
             GameObject monster = PhotonNetwork.Instantiate(monsterNameInResources, this.transform.position, Quaternion.identity, 0) as GameObject;
-            monster.GetComponent<Monster>();
+            monster.GetComponent<Monster>().spawnerPosition = this.transform;
         }
         
     }

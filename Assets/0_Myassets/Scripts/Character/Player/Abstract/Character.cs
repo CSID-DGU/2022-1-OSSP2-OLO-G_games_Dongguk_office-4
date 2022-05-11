@@ -12,6 +12,7 @@ public abstract class Character : MonoBehaviourPun
     public GameObject hand;
     public bool isNeedRotation;
     public float speed = 3;
+    DataMangaer myData;
     protected void Awake()
     {
         

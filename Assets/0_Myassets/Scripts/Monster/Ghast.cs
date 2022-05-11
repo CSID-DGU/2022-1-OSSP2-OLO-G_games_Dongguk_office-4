@@ -8,8 +8,7 @@ namespace ActiveCode.CH
 {
     public class Ghast : Monster
     {
-        [SerializeField]
-        Transform spawnerPosition;
+        
        
         public float speed = 5f;
 
@@ -30,7 +29,7 @@ namespace ActiveCode.CH
         {
             base.Update();
 
-            
+            /*
             if (this.target)
             {
                 this.MoveToTarget();
@@ -44,7 +43,7 @@ namespace ActiveCode.CH
                     this.target = c.gameObject;
                 }
             }
-            
+            */
 
             //Debug.Log($"HP: {this.status.hp} / Defense: {this.status.defense} / Damage: {this.status.damage}");
         }
@@ -77,6 +76,11 @@ namespace ActiveCode.CH
 
             // [TODO] get weapon damage
             this.status.hp -= 10;
+        }
+
+        protected override void OnTriggerEnterWithCharacterBehaviour(Collider2D collision)
+        {
+            
         }
     }
 }
