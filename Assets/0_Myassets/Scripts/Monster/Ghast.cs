@@ -8,8 +8,9 @@ namespace ActiveCode.CH
 {
     public class Ghast : Monster
     {
-        // 따라갈 Target
-        public GameObject target;
+        [SerializeField]
+        Transform spawnerPosition;
+       
         public float speed = 5f;
 
         protected Rigidbody2D rb;
@@ -29,6 +30,7 @@ namespace ActiveCode.CH
         {
             base.Update();
 
+            
             if (this.target)
             {
                 this.MoveToTarget();
@@ -42,6 +44,7 @@ namespace ActiveCode.CH
                     this.target = c.gameObject;
                 }
             }
+            
 
             //Debug.Log($"HP: {this.status.hp} / Defense: {this.status.defense} / Damage: {this.status.damage}");
         }

@@ -1,22 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace ActiveCode.CH
 {
-    public abstract class Monster : MonoBehaviour
+    public abstract class Monster : MonoBehaviourPun
     {
         // 몬스터 Status (inspector에서 스탯 범위 설정)
         public MonsterStatus status;
+
+        // 따라갈 Target
+        public GameObject target;
+        
+        
 
         protected virtual void Awake()
         {
             // Status 초기화
             status.Init();
+     
+           
         }
 
         protected virtual void Update()
         {
+            
             // 죽음 처리 (OnHit에서 ?)
             if (this.status.hp <= 0)
             {
