@@ -8,6 +8,7 @@ TagManager:
   - Character
   - DroppedWeapone
   - CharacterHitBox
+  - DroppedEquip
   layers:
   - Default
   - TransparentFX

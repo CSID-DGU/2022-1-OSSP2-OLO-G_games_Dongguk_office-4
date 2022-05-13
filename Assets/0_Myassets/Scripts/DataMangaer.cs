@@ -7,7 +7,8 @@ using System.Linq;
 
 
 public class DataMangaer : MonoBehaviour
-{    
+{
+    const int MaxInventoryItemCount = 16;
     public GameObject myCharacter;
     public int inGameIndex;//멀티플레이 몇번째 플레이언지 인덱스
     public static DataMangaer instance;
@@ -18,7 +19,7 @@ public class DataMangaer : MonoBehaviour
     public string myNickName;
 
     public InGameStat gameStat;
-    public EquipDataData nowEquipData;//현재 착용 장비
+    public PlayerEquipData nowEquipData;//현재 착용 장비
 
 
     public bool isInLobby = true;
@@ -49,7 +50,7 @@ public class DataMangaer : MonoBehaviour
             saveData();
         }
         loadData();
-        userData.equipInventory.Add(GameObject.Find("Vest").GetComponent<Vest>().equipData);
+        
         UpdateStat();
         
     }
@@ -106,6 +107,7 @@ public class DataMangaer : MonoBehaviour
     {       
         userData = JsonToOject(PlayerPrefs.GetString("playerData"));
         nowEquipData.LoadData(userData.equipInventory);
+        InGameUIManager.instance.UpdateGold();
     }
   
    
@@ -123,6 +125,29 @@ public class DataMangaer : MonoBehaviour
         userData.haveMoney += amount;
         saveData();
         //InGameUIManager.instance.UpdateGold();
+    }
+    public void AddEquip(EquipData data)
+    {
+        if (!isEquipInventoryFull())
+        {
+            userData.equipInventory.Add(data);
+        }
+        else
+        {
+            Debug.Log("인벤토리 포화상태");
+        }
+        
+    }
+    public bool isEquipInventoryFull()
+    {
+        if(userData.equipInventory.Count< MaxInventoryItemCount)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 }
 
@@ -165,7 +190,7 @@ public class CharacterStatData
 }
 
 [System.Serializable]
-public class EquipDataData
+public class PlayerEquipData
 {
     public EquipData weapon;
     public EquipData head;//머리
@@ -179,11 +204,14 @@ public class EquipDataData
         head = equipInv.Where(equip => equip.itemType == ItemType.Head).Where(equip => equip.getIsNowEquip() == true).FirstOrDefault();
         amor = equipInv.Where(equip => equip.itemType == ItemType.Amor).Where(equip => equip.getIsNowEquip() == true).FirstOrDefault();
         ring = equipInv.Where(equip => equip.itemType == ItemType.Ring).Where(equip => equip.getIsNowEquip() == true).FirstOrDefault();
-        var test = equipInv.Where(equip => equip.itemType == ItemType.Weapon).Where(equip => equip.getIsNowEquip() == true);
+        var test = equipInv.Where(equip => equip.itemType == ItemType.Head);
         foreach(var i in test)
         {
             Debug.Log(i.itemName);
+            Debug.Log(i.getIsNowEquip());
+            Debug.Log(i.addHp);
         }
+        
     }
     
     public int GetAllAddHp()

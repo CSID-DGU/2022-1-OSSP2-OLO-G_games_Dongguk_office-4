@@ -7,6 +7,7 @@ public class InventorySlot : MonoBehaviour
 {
     public Image itemImage;
     public Text itemCount;
+    public GameObject equipText;
     // Start is called before the first frame update
     void Start()
     {

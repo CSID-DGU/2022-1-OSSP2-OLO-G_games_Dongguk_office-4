@@ -8,8 +8,8 @@ public class EquipData : Item
 {
     public ItemType itemType;
 
-    [SerializeField]
-    bool isNowEquip = false;
+
+    public bool isNowEquip;
 
 
     public int reinforcedCount=0;//강화단계
