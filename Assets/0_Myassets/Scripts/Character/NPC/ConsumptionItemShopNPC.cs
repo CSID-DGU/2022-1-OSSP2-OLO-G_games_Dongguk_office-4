@@ -11,7 +11,7 @@ public class ConsumptionItemShopNPC : NPC
         {
             //if npc in lobby it active as shop
             Debug.Log("Shop");
-            InGameUIManager.instance.PopUpPanel(LobbyManager.instance.consumptionItemShopPanel);
+            
         }
         else
         {

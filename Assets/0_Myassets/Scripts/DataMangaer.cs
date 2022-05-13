@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json;
+using System.Linq;
 
 
 public class DataMangaer : MonoBehaviour
 {    
     public GameObject myCharacter;
-    public int inGameIndex;
+    public int inGameIndex;//멀티플레이 몇번째 플레이언지 인덱스
     public static DataMangaer instance;
-    public static UserData userData;
+
+    public UserData userData;
     public GameObject testObj;
-    public GameObject[] hotKeys;
+
     public string myNickName;
+
+    public InGameStat gameStat;
+    public EquipDataData nowEquipData;//현재 착용 장비
+
 
     public bool isInLobby = true;
     private void Awake()
@@ -21,6 +27,7 @@ public class DataMangaer : MonoBehaviour
         Application.runInBackground = true;
         myNickName = PlayerPrefs.GetString("NickName");
         userData = new UserData();
+        gameStat = new InGameStat();
         if (instance == null)
         {
             instance = this;
@@ -28,54 +35,63 @@ public class DataMangaer : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        }        
+        }
+
+        if (!PlayerPrefs.HasKey("playerData"))
+        {
+            userData.selectedCharacterName = "Character1";
+
+            userData.equipInventory = new List<EquipData>();
+            userData.consumeInventory = new List<ConsumeData>();
+            userData.stat = new CharacterStatData();
+            userData.stat.initData();           
+            userData.haveMoney = 20;
+            saveData();
+        }
+        loadData();
+        userData.equipInventory.Add(GameObject.Find("Vest").GetComponent<Vest>().equipData);
+        UpdateStat();
+        
     }
     public void DeleteAllPrefs()
     {
         PlayerPrefs.DeleteAll();
     }
+    public void UpdateStat()
+    {
+        //캐릭터 스탯과 장비 스탯 합산
+        int finalStr = userData.stat.str + nowEquipData.GetAllAddStr();
+        int finalDex = userData.stat.dex + nowEquipData.GetAllAddDex();
+        int finalInt = userData.stat.intelligent + nowEquipData.GetAllAddInt();
+        int finalLuck = userData.stat.luck + nowEquipData.GetAllAddLuck();
 
+        //합산한 스탯 기준으로 인게임 수치 계산
+        //가중치로 밸런스 조절
+        gameStat.maxHp = userData.stat.baseHp + nowEquipData.GetAllAddHp() + (finalStr*5);
+        gameStat.maxMp = userData.stat.baseMp + nowEquipData.GetAllAddMp() + (finalInt*3);
+
+        gameStat.finalPhysicAtk = nowEquipData.GetAllAddAtk()+(finalStr/2);
+        gameStat.finalMagicAtk =  nowEquipData.GetAllAddMagic()+(finalInt*3);
+        gameStat.finalAccuracyRate = 0.5f+(finalDex/100); //dex 50이면 무조건 적중
+        gameStat.finalAvoidenceRate = finalLuck/100; //luck 100이면 무조건 회피
+
+    }
     private void Start()
     {
-        if (!PlayerPrefs.HasKey("playerData"))
-        {
-            userData.selectedCharacterName = "Character1";
-            Debug.Log("?????? ?????? ????");
-            userData.inventory = new Dictionary<int, int>();
-            for (int i = 0; i < userData.hotKeyItems.Length; i++)
-            {
-                userData.hotKeyItems[i] = -1;
-            }            
-            userData.haveMoney = 20;
-            saveData();
-        }
-        loadData();
+        
+       
     }
 
     public void AddItem(int itemCode,int amount)
     {
-        if (userData.inventory.ContainsKey(itemCode))
-        {
-            userData.inventory[itemCode]+=amount;
-        }
-        else
-        {
-            userData.inventory.Add(itemCode, amount);
-        }
-        
         saveData();
     }
     public void ConsumItem(int itemCode)
     {
-        //???????????? ????
-        userData.inventory[itemCode]--;
-        if (userData.inventory[itemCode] <= 0)
-        {
-            userData.inventory.Remove(itemCode);
-        }
+       
         saveData();
     }
-    public void EquipItem(int itemCode)
+    public void EquipDataItem(int itemCode)
     {
         saveData();
     }
@@ -87,27 +103,15 @@ public class DataMangaer : MonoBehaviour
         PlayerPrefs.SetString("playerData", ObjectToJson(userData));
     }
     public void loadData()
-    {
-        Debug.Log("?????? ????");
+    {       
         userData = JsonToOject(PlayerPrefs.GetString("playerData"));
-        Debug.Log(PlayerPrefs.GetString("playerData"));
-        for (int i = 0; i < hotKeys.Length; i++)
-        {
-            if (userData.hotKeyItems[i] != -1)
-            {
-                hotKeys[i].GetComponent<HotKey>().SetHotKey(userData.hotKeyItems[i]);
-             
-            }            
-        }
-        InGameUIManager.instance.UpdateGold();
-        InGameUIManager.instance.UpdateAllHotKeyInfo();
-        
-        
+        nowEquipData.LoadData(userData.equipInventory);
     }
   
    
     string ObjectToJson(object obj)
     {
+       
         return JsonConvert.SerializeObject(obj);
     }
     UserData JsonToOject(string jsonData)
@@ -118,36 +122,127 @@ public class DataMangaer : MonoBehaviour
     {
         userData.haveMoney += amount;
         saveData();
-        InGameUIManager.instance.UpdateGold();
+        //InGameUIManager.instance.UpdateGold();
     }
 }
 
 [System.Serializable]
 public class UserData
 {
-    public string selectedCharacterName;
-    public int haveMoney;
-    public int characterMaxHp;
-    public int characterMaxMp;
-    public int characterNowHp;
-    public int characterNowMp;
-    public int characterNowEquipWeaspone;
-    
+    public string selectedCharacterName;//나중에 여러 캐릭터 사용을 위함
+    public int haveMoney;//소지 재화
 
-    public int characterBaseDamage;
-
-    
-    public List<int> savedNpcList;
- 
-    public Dictionary<int,int> inventory = new Dictionary<int, int>();
-
-    public int[] hotKeyItems = new int[4];  
+    public CharacterStatData stat;//캐릭터 기본 스탯
    
+ 
+    public List<EquipData> equipInventory = new List<EquipData>();//장비 인벤토리
+    public List<ConsumeData> consumeInventory = new List<ConsumeData>();//소비 아이템 인벤토리
+
+    public List<int> savedNpcList;//구한 npc리스트
 }
 
-public class EquipData
+[System.Serializable]
+public class CharacterStatData
 {
-    public int weapon;
+    public int baseHp;
+    public int baseMp;
+    public int str;//물공 관련
+    public int dex;//명중관련
+    public int intelligent;//마공 관련
+    public int luck;//회피 관련
+
+    public void initData()
+    {
+        baseHp = 100;
+        baseMp = 30;
+        str = 10;
+        dex = 10;
+        intelligent = 10;
+        luck = 10;
+    }
+    
+    
+}
+
+[System.Serializable]
+public class EquipDataData
+{
+    public EquipData weapon;
+    public EquipData head;//머리
+    public EquipData amor;//갑옷
+    public EquipData ring;//반지
+
+    public void LoadData(List<EquipData> equipInv)
+    {
+      
+        weapon = equipInv.Where(equip => equip.itemType == ItemType.Weapon).Where(equip => equip.getIsNowEquip() == true).FirstOrDefault();
+        head = equipInv.Where(equip => equip.itemType == ItemType.Head).Where(equip => equip.getIsNowEquip() == true).FirstOrDefault();
+        amor = equipInv.Where(equip => equip.itemType == ItemType.Amor).Where(equip => equip.getIsNowEquip() == true).FirstOrDefault();
+        ring = equipInv.Where(equip => equip.itemType == ItemType.Ring).Where(equip => equip.getIsNowEquip() == true).FirstOrDefault();
+        var test = equipInv.Where(equip => equip.itemType == ItemType.Weapon).Where(equip => equip.getIsNowEquip() == true);
+        foreach(var i in test)
+        {
+            Debug.Log(i.itemName);
+        }
+    }
+    
+    public int GetAllAddHp()
+    {
+        //장비 hp옵션 합
+        return (weapon?.addHp ?? 0 )+ (head?.addHp ?? 0) + (amor?.addHp ?? 0) + (ring?.addHp ?? 0);
+    }
+    public int GetAllAddMp()
+    {
+        //장비 mp옵션 합
+        return (weapon?.addMp ?? 0) + (head?.addMp ?? 0) + (amor?.addMp ?? 0) + (ring?.addMp ?? 0);
+        
+    }
+    public int GetAllAddStr()
+    {
+        //장비 str옵션 합
+        return (weapon?.addStr ?? 0) + (head?.addStr ?? 0) + (amor?.addStr ?? 0) + (ring?.addStr ?? 0);
+        
+    }
+    public int GetAllAddDex()
+    {
+        //장비 dex옵션 합
+        return (weapon?.addDex ?? 0) + (head?.addDex ?? 0) + (amor?.addDex ?? 0) + (ring?.addDex ?? 0);
+        
+    }
+    public int GetAllAddInt()
+    {
+        //장비 Int옵션 합
+        return (weapon?.addIntelligent ?? 0) + (head?.addIntelligent ?? 0) + (amor?.addIntelligent ?? 0) + (ring?.addIntelligent ?? 0);
+       
+    }
+    public int GetAllAddLuck()
+    {
+        return (weapon?.addLuck ?? 0) + (head?.addLuck ?? 0) + (amor?.addLuck ?? 0) + (ring?.addLuck ?? 0);
+        
+    }
+    public int GetAllAddAtk()
+    {
+        return (weapon?.addAtk ?? 0) + (head?.addAtk ?? 0) + (amor?.addAtk ?? 0) + (ring?.addAtk ?? 0);
+        
+    }
+    public int GetAllAddMagic()
+    {
+        return (weapon?.addMagic ?? 0) + (head?.addMagic ?? 0) + (amor?.addMagic ?? 0) + (ring?.addMagic ?? 0);
+        
+    }
+}
+
+[System.Serializable]
+public class InGameStat
+{
+    public int maxHp;
+    public int maxMp;
+    public int finalPhysicAtk;
+    public int finalMagicAtk;
+    public float finalAvoidenceRate;
+    public float finalAccuracyRate;
+    public int nowHp;
+    public int nowMp;
 }
 //public class 
 

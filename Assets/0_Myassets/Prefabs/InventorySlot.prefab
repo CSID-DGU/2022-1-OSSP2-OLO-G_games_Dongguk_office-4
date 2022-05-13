@@ -169,9 +169,9 @@ GameObject:
   - component: {fileID: 5069084934137381104}
   - component: {fileID: 5069084934137381111}
   - component: {fileID: 5069084934137381107}
-  - component: {fileID: 8382014440233307119}
+  - component: {fileID: 511984263705060235}
   m_Layer: 5
-  m_Name: InventoryItemContent
+  m_Name: InventorySlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -301,9 +301,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8382014440233307119}
+      - m_Target: {fileID: 5069084934137381109}
         m_TargetAssemblyTypeName: InventoryItemContent, Assembly-CSharp
-        m_MethodName: OnItemClick
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -313,7 +313,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8382014440233307119
+--- !u!114 &511984263705060235
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -322,8 +322,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5069084934137381109}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a460e5438db94ee79f3831148b0f824, type: 3}
+  m_Script: {fileID: 11500000, guid: d131513e81d3f95458ed5eab275ce1a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemImage: {fileID: 5069084934038047757}
-  amoutOfItemText: {fileID: 5069084933483942071}
+  itemCount: {fileID: 5069084933483942071}

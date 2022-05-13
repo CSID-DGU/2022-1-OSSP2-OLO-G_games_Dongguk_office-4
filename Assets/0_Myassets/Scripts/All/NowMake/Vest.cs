@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class _201_MpPotion : Item
+public class Vest : MonoBehaviour
 {
-    public int mpRecoverAmount;
-   
-
     // Start is called before the first frame update
+    public EquipData equipData;
     void Start()
     {
         

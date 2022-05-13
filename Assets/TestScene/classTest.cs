@@ -9,6 +9,7 @@ namespace TestSpace
 {
     public class classTest : MonoBehaviour
     {
+        public Sprite img;
         // Start is called before the first frame update
         List<testC1> listTest;
         void Start()
@@ -31,7 +32,7 @@ namespace TestSpace
             {
                 Debug.Log(i.val3);
             }
-            */
+            
 
             TestDataClass jsonTestData = new TestDataClass();
             TestDataClass1 newData = new TestDataClass1();
@@ -43,7 +44,16 @@ namespace TestSpace
             Debug.Log(jsonData);
 
             var deserializedData = JsonConvert.DeserializeObject<TestDataClass>(jsonData);
-            Debug.Log(deserializedData.myListPart[1].myList[1].myDataInt);
+            //Debug.Log(((testC3)deserializedData).newInt);
+
+            */
+            var testCFI = new ImageToJsonText();
+            testCFI.image = img;
+            string data = JsonConvert.SerializeObject(testCFI);
+            Debug.Log(data);
+            PlayerPrefs.SetString("imageTest", data);
+            var loadedData = JsonConvert.DeserializeObject<ImageToJsonText>(PlayerPrefs.GetString("imageTest"));
+
         }
 
         // Update is called once per frame
@@ -51,6 +61,17 @@ namespace TestSpace
         {
 
         }
+    }
+
+    public class ImageToJsonText
+    {
+        public Sprite image;
+    }
+
+
+    public class testC3 : TestDataClass
+    {
+        public int newInt = 6;
     }
 
     public class testC1
