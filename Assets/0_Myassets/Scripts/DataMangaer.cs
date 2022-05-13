@@ -145,3 +145,10 @@ public class UserData
    
 }
 
+public class EquipData
+{
+    public int weapon;
+}
+//public class 
+
+//캐릭터 아이템 소유정보, 착용정보, 스탯 분리해서 저장

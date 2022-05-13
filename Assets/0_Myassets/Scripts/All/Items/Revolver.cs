@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class _201_MpPotion : Item
+[System.Serializable]
+public class Revolver : MonoBehaviour
 {
-    public int mpRecoverAmount;
-   
 
-    // Start is called before the first frame update
+    public WeaponStat weaponStat;
     void Start()
     {
         

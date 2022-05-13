@@ -13,14 +13,6 @@ public class _200_HpPotion : Item
        
     }
    
-    public override void OnClick()
-    {
-        Debug.Log("hp포션");
-       
-    }
-
-    protected override void OnPickUpItem()
-    {
-        throw new System.NotImplementedException();
-    }
+    
+   
 }
