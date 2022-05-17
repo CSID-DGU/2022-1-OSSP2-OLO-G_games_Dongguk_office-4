@@ -9,6 +9,7 @@ public class movement : MonoBehaviour
     public GameObject hand;
     public static CharacterController instance;
 
+
     int left, right, up, down;//???? ???? ????
     Vector3 characterMovePos;
 
@@ -31,6 +32,12 @@ public class movement : MonoBehaviour
         left = 0; right = 0; up = 0; down = 0;
 
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("누름");
+            Character.GetComponent<Animator>().SetBool("isDash", true);
+        }
+        Character.GetComponent<Animator>().SetBool("isDash", false);
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -77,8 +84,6 @@ public class movement : MonoBehaviour
             }
         }
 
-
-
         characterMovePos = new Vector3(left + right, up + down, 0).normalized;
         if (characterMovePos != Vector3.zero)
         {
@@ -89,6 +94,8 @@ public class movement : MonoBehaviour
             Character.GetComponent<Animator>().SetBool("isMove", false);
         }
         Character.transform.Translate(2.0f * Time.fixedDeltaTime * characterMovePos);
+
+        
     }
     float offset = 0f;
     void handRotationController()
