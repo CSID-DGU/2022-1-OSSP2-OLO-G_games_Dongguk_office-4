@@ -8,6 +8,10 @@ public class InGameUIManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public TMP_Text money_text;
+    public Image hpBarImage;
+    public Image mpBarImage;
+    public TMP_Text hp_text;
+    public TMP_Text mp_text;
     public GameObject inventoryPanel;
 
     public static InGameUIManager instance;
@@ -42,5 +46,17 @@ public class InGameUIManager : MonoBehaviour
     public void ClosePanel(GameObject panel)
     {
         panel.SetActive(false);
+    }
+
+    public void UpdateStatUI()
+    {
+        int maxHp = DataMangaer.instance.gameStat.maxHp;
+        int maxMp = DataMangaer.instance.gameStat.maxMp;
+        int nowHp = DataMangaer.instance.gameStat.nowHp;
+        int nowMp = DataMangaer.instance.gameStat.nowMp;
+        hp_text.text = $"{nowHp}/{maxHp}";
+        mp_text.text = $"{nowMp}/{maxMp}";
+        hpBarImage.fillAmount = (float)nowHp / maxHp;
+        mpBarImage.fillAmount = (float)nowMp / maxMp;
     }
 }

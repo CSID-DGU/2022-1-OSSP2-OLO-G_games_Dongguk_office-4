@@ -33,6 +33,8 @@ public class InventorySlot : MonoBehaviour
             }
             temp.isNowEquip = true;
             DataMangaer.instance.saveData();
+            DataMangaer.instance.nowEquipData.LoadData();
+            DataMangaer.instance.UpdateStat();
             InventoryManager.instance.UpdateEquipInventory();
         }
     }

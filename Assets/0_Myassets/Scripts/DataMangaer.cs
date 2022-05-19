@@ -70,11 +70,30 @@ public class DataMangaer : MonoBehaviour
         //가중치로 밸런스 조절
         gameStat.maxHp = userData.stat.baseHp + nowEquipData.GetAllAddHp() + (finalStr*5);
         gameStat.maxMp = userData.stat.baseMp + nowEquipData.GetAllAddMp() + (finalInt*3);
-
+        if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name== "Lobby")
+        {
+            //로비에서만 장비 장착 시 스탯 만땅
+            gameStat.nowHp = gameStat.maxHp;
+            gameStat.nowMp = gameStat.maxMp;
+        }
+        else
+        {
+            //그외 스탯 올라가지 않고 최대치까지 낮추기
+            if (gameStat.nowHp > gameStat.maxHp)
+            {
+                gameStat.nowHp = gameStat.maxHp;
+            }
+            if (gameStat.nowMp > gameStat.maxMp)
+            {
+                gameStat.nowMp = gameStat.maxMp;
+            }
+        }
+        
         gameStat.finalPhysicAtk = nowEquipData.GetAllAddAtk()+(finalStr/2);
         gameStat.finalMagicAtk =  nowEquipData.GetAllAddMagic()+(finalInt*3);
         gameStat.finalAccuracyRate = 0.5f+(finalDex/100); //dex 50이면 무조건 적중
         gameStat.finalAvoidenceRate = finalLuck/100; //luck 100이면 무조건 회피
+        InGameUIManager.instance.UpdateStatUI();
 
     }
     private void Start()
@@ -107,7 +126,7 @@ public class DataMangaer : MonoBehaviour
     public void loadData()
     {       
         userData = JsonToOject(PlayerPrefs.GetString("playerData"));
-        nowEquipData.LoadData(userData.equipInventory);
+        nowEquipData.LoadData();
         InGameUIManager.instance.UpdateGold();
     }
   
@@ -198,14 +217,14 @@ public class PlayerEquipData
     public EquipData amor;//갑옷
     public EquipData ring;//반지
 
-    public void LoadData(List<EquipData> equipInv)
+    public void LoadData()
     {
       
-        weapon = equipInv.Where(equip => equip.itemType == ItemType.Weapon).Where(equip => equip.getIsNowEquip() == true).FirstOrDefault();
-        head = equipInv.Where(equip => equip.itemType == ItemType.Head).Where(equip => equip.getIsNowEquip() == true).FirstOrDefault();
-        amor = equipInv.Where(equip => equip.itemType == ItemType.Amor).Where(equip => equip.getIsNowEquip() == true).FirstOrDefault();
-        ring = equipInv.Where(equip => equip.itemType == ItemType.Ring).Where(equip => equip.getIsNowEquip() == true).FirstOrDefault();
-        var test = equipInv.Where(equip => equip.itemType == ItemType.Head);
+        weapon = DataMangaer.instance.userData.equipInventory.Where(equip => equip.itemType == ItemType.Weapon).Where(equip => equip.getIsNowEquip() == true).FirstOrDefault();
+        head = DataMangaer.instance.userData.equipInventory.Where(equip => equip.itemType == ItemType.Head).Where(equip => equip.getIsNowEquip() == true).FirstOrDefault();
+        amor = DataMangaer.instance.userData.equipInventory.Where(equip => equip.itemType == ItemType.Amor).Where(equip => equip.getIsNowEquip() == true).FirstOrDefault();
+        ring = DataMangaer.instance.userData.equipInventory.Where(equip => equip.itemType == ItemType.Ring).Where(equip => equip.getIsNowEquip() == true).FirstOrDefault();
+        var test = DataMangaer.instance.userData.equipInventory.Where(equip => equip.itemType == ItemType.Head);
         foreach(var i in test)
         {
             Debug.Log(i.itemName);
