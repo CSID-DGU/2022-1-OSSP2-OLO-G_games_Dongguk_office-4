@@ -49,10 +49,15 @@ public class DataMangaer : MonoBehaviour
             userData.haveMoney = 20;
             saveData();
         }
+
         loadData();
-        
+
         UpdateStat();
-        
+
+    }
+    private void Start()
+    {
+
     }
     public void DeleteAllPrefs()
     {
@@ -96,11 +101,7 @@ public class DataMangaer : MonoBehaviour
         InGameUIManager.instance.UpdateStatUI();
 
     }
-    private void Start()
-    {
-        
-       
-    }
+   
 
     public void AddItem(int itemCode,int amount)
     {

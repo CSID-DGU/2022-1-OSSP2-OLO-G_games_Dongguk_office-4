@@ -26,7 +26,8 @@ public class InventorySlot : MonoBehaviour
         if (equipData != null)
         {
             EquipData temp = DataMangaer.instance.userData.equipInventory.Find(x => x == equipData);
-            
+
+           
             foreach(var i in DataMangaer.instance.userData.equipInventory.FindAll(x => x.itemType == equipData.itemType))
             {
                 i.isNowEquip = false;

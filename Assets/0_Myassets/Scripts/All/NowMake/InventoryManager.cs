@@ -26,6 +26,10 @@ public class InventoryManager : MonoBehaviour
 
 
     }
+    private void Start()
+    {
+      
+    }
     public void OpenPanel(int panelIndex)
     {
         for(int i = 0; i < inventoryPanels.Length; i++)
@@ -77,10 +81,7 @@ public class InventoryManager : MonoBehaviour
         
         
     }
-    private void Start()
-    {
-        UpdateEquipInventory();
-    }
+   
 
 
 }
