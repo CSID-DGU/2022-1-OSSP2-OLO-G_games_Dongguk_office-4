@@ -36,19 +36,24 @@ public class InventoryManager : MonoBehaviour
     }
     public void UpdateInventory()
     {
-        
+        UpdateEquipInventory();
     }
     public void AddEquipToInventory(EquipData data)
     {
-        GameObject go = Instantiate(slotPrefab, inventoryPanels[0].transform) as GameObject;
-        var sc = go.GetComponent<InventorySlot>();
-        sc.itemCount.gameObject.SetActive(false);
-        sc.equipText.SetActive(false);
-        if (data.isNowEquip)
+        if (inventoryPanels[0].activeInHierarchy)
         {
-            sc.equipText.SetActive(true);
+            GameObject go = Instantiate(slotPrefab, inventoryPanels[0].transform) as GameObject;
+            var sc = go.GetComponent<InventorySlot>();
+            sc.itemCount.gameObject.SetActive(false);
+            sc.equipText.SetActive(false);
+            sc.equipData = data;
+            if (data.isNowEquip)
+            {
+                sc.equipText.SetActive(true);
+            }
+            sc.itemImage.sprite = data.GetItemImage();
         }
-        sc.itemImage.sprite = data.GetItemImage();
+        DataMangaer.instance.saveData();
     }
     public void UpdateEquipInventory()
     {
@@ -62,6 +67,7 @@ public class InventoryManager : MonoBehaviour
             var sc = go.GetComponent<InventorySlot>();
             sc.itemCount.gameObject.SetActive(false);
             sc.equipText.SetActive(false);
+            sc.equipData = i;
             if (i.isNowEquip)
             {
                 sc.equipText.SetActive(true);

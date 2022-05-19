@@ -14,8 +14,9 @@ public class DroppedEquipment : MonoBehaviour
         if (!DataMangaer.instance.isEquipInventoryFull())
         {
             Debug.Log(data.itemName + "획득");
+            DataMangaer.instance.AddEquip(data);
             InventoryManager.instance.AddEquipToInventory(data);
-            DataMangaer.instance.saveData();
+            
             Destroy(gameObject);
         }
         else

@@ -8,6 +8,7 @@ public class InGameUIManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public TMP_Text money_text;
+    public GameObject inventoryPanel;
 
     public static InGameUIManager instance;
     private void Awake()
@@ -30,7 +31,14 @@ public class InGameUIManager : MonoBehaviour
     public void PopUpPanel(GameObject panel)
     {
         panel.SetActive(true);
+        
     }
+    public void PopUpInventory()
+    {
+        inventoryPanel.SetActive(true);
+        InventoryManager.instance.UpdateEquipInventory();
+    }
+    
     public void ClosePanel(GameObject panel)
     {
         panel.SetActive(false);

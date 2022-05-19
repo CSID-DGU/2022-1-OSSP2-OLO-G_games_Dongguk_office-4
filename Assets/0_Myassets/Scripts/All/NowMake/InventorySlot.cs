@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour
 {
+    public EquipData equipData;
+
     public Image itemImage;
     public Text itemCount;
     public GameObject equipText;
@@ -18,6 +20,21 @@ public class InventorySlot : MonoBehaviour
     void Update()
     {
         
+    }
+    public void OnClickInventorySlot()
+    {
+        if (equipData != null)
+        {
+            EquipData temp = DataMangaer.instance.userData.equipInventory.Find(x => x == equipData);
+            
+            foreach(var i in DataMangaer.instance.userData.equipInventory.FindAll(x => x.itemType == equipData.itemType))
+            {
+                i.isNowEquip = false;
+            }
+            temp.isNowEquip = true;
+            DataMangaer.instance.saveData();
+            InventoryManager.instance.UpdateEquipInventory();
+        }
     }
     
 }

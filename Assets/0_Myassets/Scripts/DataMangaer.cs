@@ -99,7 +99,8 @@ public class DataMangaer : MonoBehaviour
 
 
     public void saveData()
-    {        
+    {
+        Debug.Log("저장");
         Debug.Log(ObjectToJson(userData));
         PlayerPrefs.SetString("playerData", ObjectToJson(userData));
     }
@@ -136,7 +137,7 @@ public class DataMangaer : MonoBehaviour
         {
             Debug.Log("인벤토리 포화상태");
         }
-        
+        saveData();
     }
     public bool isEquipInventoryFull()
     {
