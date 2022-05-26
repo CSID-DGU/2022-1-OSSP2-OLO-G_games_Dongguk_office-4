@@ -7,6 +7,9 @@ using Photon.Pun;
 [RequireComponent(typeof(AudioSource))]
 public abstract class Weapone : MonoBehaviourPun
 {
+    [HideInInspector]
+    public EquipData equipData;
+
     public AudioClip fireSound;
     int itemReinforcedStack;
     bool isFireOkay;//?????? ???? ???? ????????
@@ -16,7 +19,7 @@ public abstract class Weapone : MonoBehaviourPun
 
     public bool isOnGround;
 
-
+    
 
     void Start()
     {
@@ -36,7 +39,7 @@ public abstract class Weapone : MonoBehaviourPun
         Invoke("RandomizeKey", 3);
     }
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (!photonView.IsMine) return;
         if (isFireOkay&&Input.GetMouseButton(0)&&fireRateCount>fireRate)
@@ -56,6 +59,11 @@ public abstract class Weapone : MonoBehaviourPun
     {
         this.GetComponent<AudioSource>().clip = fireSound;
         this.GetComponent<AudioSource>().Play();
+    }
+
+    public void Atk(Character characterSC)
+    {
+        
     }
     
 }

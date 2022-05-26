@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public abstract class Bullet : MonoBehaviour
 {
 
-    int damage;//µ¥¹ÌÁö
+    int damage;//ë°ë¯¸ì§€
     protected float bulletSpeed;
-    Vector3 targetPosition;//¸ñÇ¥ À§Ä¡
-    Vector2 targetDirection;//Å¸°Ù ¹æÇâ
-    bool isLaser;//ÃÑ¾ËÀÌ ¸ñÇ¥À§Ä¡±îÁö¸¸ °¡´ÂÁö(false), ¾Æ´Ï¸é ¾î¶°ÇÑ ¹°Ã¼¸¦ ¸¸³¯¶§ ±îÁö °¡´ÂÁö(true)
+    Vector3 targetPosition;//ëª©í‘œ ìœ„ì¹˜
+    Vector2 targetDirection;//íƒ€ê²Ÿ ë°©í–¥
+   
 
-    protected abstract void OnHit();//ÃÑ¾ËÀÌ ´êÀº °æ¿ì
+    protected abstract void OnHit();//ì´ì•Œì´ ë‹¿ì€ ê²½ìš°
 
     private void Awake()
     {
@@ -27,10 +28,7 @@ public abstract class Bullet : MonoBehaviour
     {
         this.transform.Translate(targetDirection*Time.deltaTime*bulletSpeed,Space.World);
             //(targetDirection * Time.deltaTime * bulletSpeed);
-        if (isLaser)
-        {
-
-        }
+       
     }
     public void SetTargetPosition(Vector3 targetPosition)
     {
@@ -39,4 +37,15 @@ public abstract class Bullet : MonoBehaviour
         Debug.Log(targetDirection);
     }
     protected abstract void SetValues();
+
+  
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Monster")
+        {
+            Debug.Log("ì´ì•Œ ì ê³¼ ì¶©ëŒ");
+          
+        }
+        
+    }
 }
