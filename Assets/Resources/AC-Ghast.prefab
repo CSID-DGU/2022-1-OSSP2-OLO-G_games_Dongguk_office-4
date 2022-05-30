@@ -148,17 +148,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06305b8ee891dc24a93ad2ef38f7304b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canSearchDistance: 5
   spawnerPosition: {fileID: 0}
   status:
-    hp: 0
+    hp: 40
+    damage: 50
     maxHp: 0
-    defaultHp: 3
+    defaultHp: 10
     hpRandomness: 0
-    damage: 0
-    defaultDamage: 0
+    defaultDamage: 10
     damageRandomness: 0
-    defense: 0
-    defaultDefense: 0
+    physicDefense: 0
+    magicDefense: 3
+    defaultPhysicDefense: 0
+    defaultMagicDefense: 0
     defenseRandomness: 0
   target: {fileID: 0}
   speed: 5

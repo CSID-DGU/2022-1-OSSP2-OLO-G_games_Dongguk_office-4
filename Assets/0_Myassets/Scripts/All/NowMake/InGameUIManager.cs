@@ -19,10 +19,12 @@ public class InGameUIManager : MonoBehaviour
     {
         if (!instance)
         {
+            DontDestroyOnLoad(gameObject);
             instance = this;
         }
         else
         {
+            
             Destroy(gameObject);
         }
     }

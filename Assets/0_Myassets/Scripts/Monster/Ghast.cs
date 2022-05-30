@@ -70,17 +70,16 @@ namespace ActiveCode.CH
 
             Destroy(this.gameObject);
         }
-        protected override void OnHit(GameObject weaponObject)
-        {
-            Debug.Log($"{this.gameObject.name} 는 {weaponObject.name} 한테 뚜드려 맞음");
-
-            // [TODO] get weapon damage
-            this.status.hp -= 10;
-        }
+    
 
         protected override void OnTriggerEnterWithCharacterBehaviour(Collider2D collision)
         {
-            
+            if (collision.gameObject.transform.parent.gameObject.GetPhotonView().IsMine)
+            {
+                BattleManager.instance.DecreaseCharacterHP(status.damage);
+             
+            }
+     
         }
     }
 }

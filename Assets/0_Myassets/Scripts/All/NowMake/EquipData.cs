@@ -29,5 +29,9 @@ public class EquipData : Item
     {
         return isNowEquip;
     }
+    public int getDamage()
+    {
+        return weaponBaseDamage + reinforcedCount;
+    }
 
 }

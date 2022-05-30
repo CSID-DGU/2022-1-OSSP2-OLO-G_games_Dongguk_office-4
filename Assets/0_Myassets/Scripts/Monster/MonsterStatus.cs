@@ -8,8 +8,13 @@ namespace ActiveCode.CH
     public class MonsterStatus
     {
         // HP
-        [HideInInspector]
+
         public int hp;
+        public int damage;   // Damage
+
+
+
+
         [HideInInspector]
         public int maxHp;
 
@@ -17,20 +22,25 @@ namespace ActiveCode.CH
         [Range(0f, 1f)]
         public float hpRandomness;
 
-        // Damage
-        [HideInInspector]
-        public int damage;
+     
+     
+       
 
         public int defaultDamage;
         [Range(0f, 1f)]
         public float damageRandomness;
         
         // Defense
-        [HideInInspector]
-        public float defense;
+        public int physicDefense;
+        public int magicDefense;
 
         [Range(0f, 1f)]
-        public float defaultDefense;
+        public float defaultPhysicDefense;
+
+        [Range(0f, 1f)]
+        public float defaultMagicDefense;
+
+
         [Range(0f, 1f)]
         public float defenseRandomness;
 
@@ -62,9 +72,11 @@ namespace ActiveCode.CH
         // Defense 결정
         private void InitDefense()
         {
-            (float min, float max) = this.CalculateMinMax(this.defaultDefense, this.defenseRandomness);
+            (float minPhysic, float maxPhysic) = this.CalculateMinMax(this.defaultPhysicDefense, this.defenseRandomness);
+            (float minMagic, float maxMagic) = this.CalculateMinMax(this.defaultMagicDefense, this.defenseRandomness);
 
-            this.defense = Random.Range(min, max);
+            //this.physicDefense = Random.Range(minPhysic, maxPhysic);
+            //this.magicDefense = Random.Range(minMagic, maxMagic);
         }
 
         // 범위 계산 (int)

@@ -4,8 +4,9 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using Photon;
+using UnityEngine.UI;
 
-public class Map_1_Manager : MonoBehaviour
+public class Map_1_Manager : MonoBehaviourPun
 {
     public Transform[] characterStartPositions;
     
@@ -17,15 +18,65 @@ public class Map_1_Manager : MonoBehaviour
         }
 
     }
+    GameObject myCharacter;
+    GameObject myWeapon;
     void Start()
     {
-        GameObject myCharacter = Photon.Pun.PhotonNetwork.Instantiate("Character1", Vector3.zero, Quaternion.identity, 0) as GameObject;
+        myCharacter = Photon.Pun.PhotonNetwork.Instantiate("Character1", Vector3.zero, Quaternion.identity, 0) as GameObject;
         myCharacter.transform.position = characterStartPositions[DataMangaer.instance.inGameIndex].position;
         BattleManager.instance.myCharacter = myCharacter;
+
+        setWeapon();
+        //
+
+        GameObject.FindGameObjectWithTag("InGameUI").transform.Find("InventoryButton").GetComponent<Button>().interactable = false;
+
+       
+    }
+
+    void setWeapon()
+    {
+        if (DataMangaer.instance.nowEquipData.weapon != null)
+        {
+            myWeapon = Photon.Pun.PhotonNetwork.Instantiate(DataMangaer.instance.nowEquipData.weapon.itemName, Vector3.zero, Quaternion.identity, 0) as GameObject;
+            photonView.RPC("WeaponParenting", RpcTarget.AllBuffered, myWeapon.GetPhotonView().ViewID, myCharacter.GetPhotonView().ViewID);
+            myWeapon.GetComponent<Weapone>().equipData = DataMangaer.instance.nowEquipData.weapon;
+        }
+        
+    }
+    
+    [PunRPC]
+    void SetWeaponDefaultTransform()
+    {
+        myWeapon.transform.parent = myCharacter.GetComponent<Character>().hand.transform;
+        myWeapon.transform.localPosition = Vector3.zero;
+
+        myWeapon.GetComponent<Weapone>().nowUsingCharacter = myCharacter;
+        Debug.Log("SetWeapon");
+
+    }
+
+    [PunRPC]
+    void GitParent()
+    {
+      
+        Debug.Log("RPC Test");
+        this.gameObject.transform.parent = GameObject.Find("Base").transform;
+       
+    }
+
+    [PunRPC]
+    public void WeaponParenting(int child, int parent)
+    {
+        var thischild = PhotonView.Find(child);
+        var thisparent = PhotonView.Find(parent);
+        thischild.transform.parent = thisparent.transform.Find("Hand");
+        thischild.transform.localPosition = Vector3.zero;
+        thischild.GetComponent<Weapone>().nowUsingCharacter = thisparent.gameObject;
     }
     // Update is called once per frame
     void Update()
     {
-        
+      
     }
 }

@@ -13,6 +13,7 @@ public abstract class Character : MonoBehaviourPun
     public bool isNeedRotation;
     public float speed = 3;
     DataMangaer myData;
+    public bool isDead;
     protected void Awake()
     {
         
@@ -20,6 +21,7 @@ public abstract class Character : MonoBehaviourPun
     }
     protected void Start()
     {
+        this.GetComponent<Rigidbody2D>().sleepMode = RigidbodySleepMode2D.NeverSleep;
         Debug.Log("character Instantiated"+photonView.IsMine);
         if (!PhotonNetwork.InRoom)
         {
@@ -44,13 +46,15 @@ public abstract class Character : MonoBehaviourPun
     protected void Update()
     {
         if (!photonView.IsMine) return;
-        //when player input 'k' weapon swap.
+        /*
+        //when player input 't' weapon swap.
         if (Input.GetKey(KeyCode.T))
         {
             Debug.Log("swap weaspone");
             SwapWeapone();
         }
-        CharacterMoveController();
+        */
+       
     }
     protected void FixedUpdate()
     {
@@ -59,11 +63,12 @@ public abstract class Character : MonoBehaviourPun
             return;
         }
 
-     
+        CharacterMoveController();
     }
 
     protected void SwapWeapone()
     {
+        return; //not yet 
         if (nowSelectedWeapone == 0)
         {
             nowSelectedWeapone = 1;
@@ -110,6 +115,7 @@ public abstract class Character : MonoBehaviourPun
     Vector3 characterMovePos;
     void CharacterMoveController()
     {
+        if (isDead) return;
         left = 0; right = 0; up = 0; down = 0;
 
 
@@ -192,5 +198,6 @@ public abstract class Character : MonoBehaviourPun
             }
         }
     }
+    
 
 }

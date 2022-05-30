@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3160690953830859328}
   - component: {fileID: 4561876227355558474}
+  - component: {fileID: 2173384752170184855}
   m_Layer: 0
   m_Name: GhastSpawner
   m_TagString: Untagged
@@ -45,3 +46,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterNameInResources: AC-Ghast
+--- !u!114 &2173384752170184855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711507813123562581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

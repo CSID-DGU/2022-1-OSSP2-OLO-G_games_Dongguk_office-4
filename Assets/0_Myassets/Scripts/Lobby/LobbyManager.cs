@@ -59,7 +59,7 @@ public class LobbyManager : MonoBehaviour
     }
     public void AskEnterDungeon()
     {
-        //InGameUIManager.instance.PopUpPanel(dungeonEnteranceAskPanel);
+        InGameUIManager.instance.PopUpPanel(dungeonEnteranceAskPanel);
     
     }
 

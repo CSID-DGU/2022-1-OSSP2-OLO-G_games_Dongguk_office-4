@@ -18,7 +18,7 @@ public class DataMangaer : MonoBehaviour
 
     public string myNickName;
 
-    public InGameStat gameStat;
+    public InGameStat gameStat;//인게임에 적용될 스탯(최종 합산상태)
     public PlayerEquipData nowEquipData;//현재 착용 장비
 
 
@@ -296,3 +296,10 @@ public class InGameStat
 //public class 
 
 //캐릭터 아이템 소유정보, 착용정보, 스탯 분리해서 저장
+
+
+
+public enum AtkType
+{
+    physic, magic
+}

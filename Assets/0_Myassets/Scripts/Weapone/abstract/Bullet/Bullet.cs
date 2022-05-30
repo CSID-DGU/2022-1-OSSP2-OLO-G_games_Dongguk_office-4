@@ -2,50 +2,83 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
-public abstract class Bullet : MonoBehaviour
+using Photon.Pun;
+using ActiveCode.CH;
+public abstract class Bullet : MonoBehaviourPun
 {
-
-    int damage;//데미지
-    protected float bulletSpeed;
+    public GameObject ownerCharacter;//발사한 캐릭터
+    [HideInInspector]
+    public int damage;//데미지
+    public float bulletSpeed;
     Vector3 targetPosition;//목표 위치
     Vector2 targetDirection;//타겟 방향
+
+    public AtkType atkType;
+    
+  
    
 
-    protected abstract void OnHit();//총알이 닿은 경우
+ 
 
     private void Awake()
     {
-        SetValues();
+        if (!photonView.IsMine) return;
+
     }
     private void Start()
     {
-        
+        StartCoroutine(DestroyBulletByTimeCo());
+
+    }
+    IEnumerator DestroyBulletByTimeCo()
+    {
+        yield return new WaitForSecondsRealtime(20);
+        Destroy(gameObject);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!photonView.IsMine) return;
         this.transform.Translate(targetDirection*Time.deltaTime*bulletSpeed,Space.World);
             //(targetDirection * Time.deltaTime * bulletSpeed);
        
     }
     public void SetTargetPosition(Vector3 targetPosition)
     {
+        if (!photonView.IsMine) return;
         this.targetPosition = targetPosition;
         targetDirection = new Vector2( (targetPosition - this.transform.position).x, (targetPosition - this.transform.position).y).normalized;
         Debug.Log(targetDirection);
     }
-    protected abstract void SetValues();
+
 
   
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Monster")
         {
+           
             Debug.Log("총알 적과 충돌");
+            if (photonView.IsMine)
+            {
+                photonView.RPC("OnTriggerWithMonster", RpcTarget.All, collision.gameObject.GetComponent<Monster>().photonView.ViewID, damage);
+         
+                
+            }
+            
           
         }
         
     }
+
+    [PunRPC]
+    public void OnTriggerWithMonster(int monsterID,int damage)
+    {
+        PhotonView.Find(monsterID).GetComponent<Monster>().DecreaseHp(damage);
+        Destroy(this.gameObject);
+    }
+    
+ 
+
 }

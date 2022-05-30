@@ -6,14 +6,23 @@ public class Revolver_1 : Gun
 {
     protected override void Fire()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
         base.Fire();
         Debug.Log("fire");
     }
 
-    protected override void SetValues()
+    protected override void Awake()
     {
-        damage = 1;
-        fireRate = 1.0f;
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+        base.Awake();
+        bulletName = "Revolver_1_Bullet";
+        fireRate = 0.5f;
     }
 
     protected override void UpdateFunc()
