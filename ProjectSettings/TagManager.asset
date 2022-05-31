@@ -6,6 +6,11 @@ TagManager:
   tags:
   - CharacterHand
   - Character
+  - DroppedWeapone
+  - CharacterHitBox
+  - DroppedEquip
+  - Monster
+  - InGameUI
   layers:
   - Default
   - TransparentFX
@@ -13,7 +18,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - CharacterFoot
   - 
   - 
   - 

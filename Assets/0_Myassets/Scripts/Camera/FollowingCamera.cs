@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class FollowingCamera : MonoBehaviour
 {
+    public static FollowingCamera instance;
     // target object
-    Transform target;
+    public Transform targetCharacterTransform;
     // smooth following duration
     public float duration = 0.3f;
 
@@ -17,18 +18,18 @@ public class FollowingCamera : MonoBehaviour
 
     private void Awake()
     {
+        if (instance != null)
+        {
+            Destroy(instance.gameObject);
+           
+        }
+        instance = this;
         
     }
     private void Start()
     {
-        foreach (var i in GameObject.FindGameObjectsWithTag("Character"))
-        {
-            if (i.GetComponent<Photon.Pun.PhotonView>().IsMine)
-            {
-                target = i.transform;
-                return;
-            }
-        }
+        
+        
         // init camera z position
         zPos = transform.position.z;
     }
@@ -36,10 +37,16 @@ public class FollowingCamera : MonoBehaviour
 
     void FixedUpdate()
     {
-                // Define a target position above and behind the target transform
-        Vector3 targetPosition = target.TransformPoint(new Vector3(0, 0, -10));
+        
+        if (targetCharacterTransform != null)
+        {
+            Vector3 targetPosition = targetCharacterTransform.TransformPoint(new Vector3(0, 0, -10));
 
-        // Smoothly move the camera towards that target position
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, duration);
+            // Smoothly move the camera towards that target position
+            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, duration);
+            // Define a target position above and behind the target transform
+        }
+
+
     }
 }

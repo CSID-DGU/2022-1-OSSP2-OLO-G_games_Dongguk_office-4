@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class ConsumptionItemShopNPC : NPC
 {
-    
+    int npcID = 0;
     public override void OnRaycastTargeted()
     {
-        if (isInLobby)
+        if (DataMangaer.instance.isInLobby)
         {
+            //if npc in lobby it active as shop
             Debug.Log("Shop");
-            InGameUIManager.instance.PopUpPanel(LobbyManager.instance.consumptionItemShopPanel);
+            
+        }
+        else
+        {
+            //save npc
+            Debug.Log("Save Npc");
         }
         
     }

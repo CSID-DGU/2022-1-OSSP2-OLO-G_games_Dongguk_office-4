@@ -2,36 +2,59 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CodeStage.AntiCheat.ObscuredTypes;
+using Photon.Pun;
+
+
 
 [RequireComponent(typeof(AudioSource))]
-public abstract class Weapone : MonoBehaviour
+public abstract class Weapone : MonoBehaviourPun
 {
+
+    public EquipData equipData;
+
     public AudioClip fireSound;
-    bool isFireOkay;//¹«±â°¡ »ç¿ë °¡´É »óÅÂÀÎÁö
-    protected ObscuredInt damage;//°ø°İ·Â
-    protected ObscuredFloat fireRate;//¿¬»ç ¼Óµµ
+    int itemReinforcedStack;
+    bool isFireOkay;//?????? ???? ???? ????????
+    protected ObscuredInt damage;//??????
+    public ObscuredFloat fireRate;//???? ????
     float fireRateCount;
 
-    void Start()
+    public bool isOnGround;
+    public GameObject nowUsingCharacter;//ë¬´ê¸°ë¥¼ ì‚¬ìš©ì¤‘ì¸ ìºë¦­í„°
+
+    protected virtual void Awake()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+    }
+    protected virtual void Start()
+    {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
         this.GetComponent<AudioSource>().loop = false;
-        SetValues();
+ 
         RandomizeKey();
         isFireOkay = true;
        
-
+       
 
     }
     void RandomizeKey()
     {
-        //3ÃÊ¸¶´Ù ¸Ş¸ğ¸® °ª º¯°æ(Ä¡ÆÃ ¹æÁö)
+        //3?????? ?????? ?? ????(???? ????)
         damage.RandomizeCryptoKey();
         fireRate.RandomizeCryptoKey();
         Invoke("RandomizeKey", 3);
     }
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
+
+        if (!photonView.IsMine) return;
         if (isFireOkay&&Input.GetMouseButton(0)&&fireRateCount>fireRate)
         {
             Fire();
@@ -41,14 +64,19 @@ public abstract class Weapone : MonoBehaviour
         fireRateCount += Time.deltaTime;
         UpdateFunc();
     }
-    protected abstract void UpdateFunc();//¾÷µ¥ÀÌÆ® È£Ãâ ½Ã ÇÒ ÀÏ ÁöÁ¤
-    protected abstract void SetValues();//¹«±â °ª ¼³Á¤(µ¥¹ÌÁö, ¹ß»ç¼Óµµ µî)
+    protected abstract void UpdateFunc();//???????? ???? ?? ?? ?? ????
+    
 
-    protected abstract void Fire();//¹«±â¸¦ ÀÌ¿ëÇßÀ»¶§ ÃëÇÒ µ¿ÀÛ(¸¶¿ì½º ÁÂÅ¬¸¯)
+    protected abstract void Fire();//?????? ?????????? ???? ????(?????? ??????)
     void PlayFireSound()
     {
         this.GetComponent<AudioSource>().clip = fireSound;
         this.GetComponent<AudioSource>().Play();
+    }
+
+    public void Atk(Character characterSC)
+    {
+        
     }
     
 }

@@ -1,42 +1,84 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public abstract class Bullet : MonoBehaviour
+using System;
+using Photon.Pun;
+using ActiveCode.CH;
+public abstract class Bullet : MonoBehaviourPun
 {
+    public GameObject ownerCharacter;//ë°œì‚¬í•œ ìºë¦­í„°
+    [HideInInspector]
+    public int damage;//ë°ë¯¸ì§€
+    public float bulletSpeed;
+    Vector3 targetPosition;//ëª©í‘œ ìœ„ì¹˜
+    Vector2 targetDirection;//íƒ€ê²Ÿ ë°©í–¥
 
-    int damage;//µ¥¹ÌÁö
-    protected float bulletSpeed;
-    Vector3 targetPosition;//¸ñÇ¥ À§Ä¡
-    Vector2 targetDirection;//Å¸°Ù ¹æÇâ
-    bool isLaser;//ÃÑ¾ËÀÌ ¸ñÇ¥À§Ä¡±îÁö¸¸ °¡´ÂÁö(false), ¾Æ´Ï¸é ¾î¶°ÇÑ ¹°Ã¼¸¦ ¸¸³¯¶§ ±îÁö °¡´ÂÁö(true)
+    public AtkType atkType;
+    
+  
+   
 
-    protected abstract void OnHit();//ÃÑ¾ËÀÌ ´êÀº °æ¿ì
+ 
 
     private void Awake()
     {
-        SetValues();
+        if (!photonView.IsMine) return;
+
     }
     private void Start()
     {
-        
+        StartCoroutine(DestroyBulletByTimeCo());
+
+    }
+    IEnumerator DestroyBulletByTimeCo()
+    {
+        yield return new WaitForSecondsRealtime(20);
+        Destroy(gameObject);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!photonView.IsMine) return;
         this.transform.Translate(targetDirection*Time.deltaTime*bulletSpeed,Space.World);
             //(targetDirection * Time.deltaTime * bulletSpeed);
-        if (isLaser)
-        {
-
-        }
+       
     }
     public void SetTargetPosition(Vector3 targetPosition)
     {
+        if (!photonView.IsMine) return;
         this.targetPosition = targetPosition;
         targetDirection = new Vector2( (targetPosition - this.transform.position).x, (targetPosition - this.transform.position).y).normalized;
         Debug.Log(targetDirection);
     }
-    protected abstract void SetValues();
+
+
+  
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Monster")
+        {
+           
+            Debug.Log("ì´ì•Œ ì ê³¼ ì¶©ëŒ");
+            if (photonView.IsMine)
+            {
+                photonView.RPC("OnTriggerWithMonster", RpcTarget.All, collision.gameObject.GetComponent<Monster>().photonView.ViewID, damage);
+         
+                
+            }
+            
+          
+        }
+        
+    }
+
+    [PunRPC]
+    public void OnTriggerWithMonster(int monsterID,int damage)
+    {
+        PhotonView.Find(monsterID).GetComponent<Monster>().DecreaseHp(damage);
+        Destroy(this.gameObject);
+    }
+    
+ 
+
 }
