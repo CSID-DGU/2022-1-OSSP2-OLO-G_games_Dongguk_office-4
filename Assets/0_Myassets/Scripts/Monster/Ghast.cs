@@ -11,7 +11,7 @@ namespace ActiveCode.CH
         
        
         public float speed = 5f;
-
+        
         protected Rigidbody2D rb;
         protected SpriteRenderer sr;
         protected PhotonView pv;
@@ -66,6 +66,7 @@ namespace ActiveCode.CH
 
         protected override void OnDie()
         {
+            base.OnDie();
             Debug.Log($"{this.gameObject.name} 는 주금");
 
             Destroy(this.gameObject);

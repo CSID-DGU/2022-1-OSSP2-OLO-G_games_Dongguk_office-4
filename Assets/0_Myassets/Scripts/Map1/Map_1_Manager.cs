@@ -9,9 +9,18 @@ using UnityEngine.UI;
 public class Map_1_Manager : MonoBehaviourPun
 {
     public Transform[] characterStartPositions;
-    
+    public GameObject goldPrefab;
+    public static Map_1_Manager instance;
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         if (FadeInOutManager.instance != null)
         {
             FadeInOutManager.instance.FadeIn();

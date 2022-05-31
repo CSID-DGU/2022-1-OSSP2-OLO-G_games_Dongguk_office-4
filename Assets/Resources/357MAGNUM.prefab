@@ -213,17 +213,17 @@ MonoBehaviour:
     addLuck: 0
     addAtk: 0
     addMagic: 0
-  fireSound: {fileID: 0}
+  fireSound: {fileID: 8300000, guid: 2e52e47814349e644a6d962affa98a6d, type: 3}
   fireRate:
     migratedVersion: 
-    currentCryptoKey: 0
-    hiddenValue: 0
+    currentCryptoKey: 1505074576
+    hiddenValue: 1503507856
     hiddenValueOldByte4:
       b1: 0
       b2: 0
       b3: 0
       b4: 0
-    inited: 0
+    inited: 1
     fakeValue: 0
     fakeValueActive: 0
   isOnGround: 0

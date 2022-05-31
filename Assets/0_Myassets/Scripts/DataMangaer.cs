@@ -44,7 +44,9 @@ public class DataMangaer : MonoBehaviour
 
             userData.equipInventory = new List<EquipData>();
             userData.consumeInventory = new List<ConsumeData>();
+            userData.savedNpcList = new List<int>();
             userData.stat = new CharacterStatData();
+            
             userData.stat.initData();           
             userData.haveMoney = 20;
             saveData();

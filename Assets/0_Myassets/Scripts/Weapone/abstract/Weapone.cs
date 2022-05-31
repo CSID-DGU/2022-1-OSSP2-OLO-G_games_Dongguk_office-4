@@ -58,7 +58,7 @@ public abstract class Weapone : MonoBehaviourPun
         if (isFireOkay&&Input.GetMouseButton(0)&&fireRateCount>fireRate)
         {
             Fire();
-            PlayFireSound();
+         
             fireRateCount = 0;
         }
         fireRateCount += Time.deltaTime;
@@ -68,7 +68,7 @@ public abstract class Weapone : MonoBehaviourPun
     
 
     protected abstract void Fire();//?????? ?????????? ???? ????(?????? ??????)
-    void PlayFireSound()
+    public void PlayFireSound()
     {
         this.GetComponent<AudioSource>().clip = fireSound;
         this.GetComponent<AudioSource>().Play();

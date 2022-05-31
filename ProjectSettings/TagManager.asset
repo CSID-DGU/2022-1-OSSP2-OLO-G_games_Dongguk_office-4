@@ -11,6 +11,7 @@ TagManager:
   - DroppedEquip
   - Monster
   - InGameUI
+  - Projection
   layers:
   - Default
   - TransparentFX

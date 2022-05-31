@@ -75,7 +75,16 @@ public abstract class Bullet : MonoBehaviourPun
     [PunRPC]
     public void OnTriggerWithMonster(int monsterID,int damage)
     {
-        PhotonView.Find(monsterID).GetComponent<Monster>().DecreaseHp(damage);
+        GameObject hitMonster = PhotonView.Find(monsterID).gameObject;
+        Monster monsterSC = hitMonster.GetComponent<Monster>();
+        monsterSC.DecreaseHp(damage);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (monsterSC.target == monsterSC.spawnerPosition.gameObject)
+            {
+                monsterSC.target = ownerCharacter;
+            }            
+        }        
         Destroy(this.gameObject);
     }
     

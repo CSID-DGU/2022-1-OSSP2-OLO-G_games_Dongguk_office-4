@@ -8,7 +8,7 @@ namespace ActiveCode.CH
 {
     public abstract class Monster : MonoBehaviourPun
     {
-
+        public int goldValue;
         public float canSearchDistance;
         public Transform spawnerPosition;
 
@@ -34,6 +34,7 @@ namespace ActiveCode.CH
         }
         private void Start()
         {
+            if (!photonView.IsMine) return;
             target = spawnerPosition.gameObject;
 
          
@@ -44,6 +45,7 @@ namespace ActiveCode.CH
         {
 
             if (!photonView.IsMine) return;
+            
             //캐릭터 검색해서 배열 받은다음 linq써서 가까운거 타겟으로 잡고, 스포너 위치 기준으로 거리가 일정이상 멀어지면
             //다시 원위치로 이동
             //if(Vector3.Distance(spawnerPosition.position,target.transform.position))
@@ -114,6 +116,8 @@ namespace ActiveCode.CH
         protected virtual void OnTriggerEnter2D(Collider2D collision)
         {
             this.GetComponent<Rigidbody2D>().sleepMode = RigidbodySleepMode2D.NeverSleep;
+    
+          
             // 플레이어 공격 collider랑 부딪히면
             //if (collision.CompareTag("playerAttackHitbox"))
 
@@ -133,7 +137,7 @@ namespace ActiveCode.CH
       
             if (collision.tag == "CharacterHitBox") // 일단 master랑 tag 겹침 방지용
             {
-                Debug.Log(atkTimeCount);
+               
                 atkTimeCount -= Time.deltaTime;
                 if (atkTimeCount < 0)
                 {
@@ -150,7 +154,15 @@ namespace ActiveCode.CH
         // 플레이어 공격에 맞았을 때
  
         // 죽었을 때
-        protected virtual void OnDie() { 
+        protected virtual void OnDie() {
+            int r = Random.Range(1, 3);
+            if (r == 1)
+            {
+                // 1/2확률로 골드 드롭
+                GameObject gold = Instantiate(Map_1_Manager.instance.goldPrefab) as GameObject;
+                gold.GetComponent<DroppedGold>().goldAmount = goldValue;
+                gold.transform.position = this.transform.position;
+            }
             
         }
     }

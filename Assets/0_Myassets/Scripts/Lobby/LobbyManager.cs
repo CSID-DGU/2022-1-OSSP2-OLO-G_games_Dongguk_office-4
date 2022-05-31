@@ -113,6 +113,14 @@ public class LobbyManager : MonoBehaviour
         }
         
     }
+    public void ClosePanel(GameObject panel)
+    {
+        panel.SetActive(false);
+    }
+    public void PopUpPanel(GameObject panel)
+    {
+        panel.SetActive(true);
+    }
 
 
 

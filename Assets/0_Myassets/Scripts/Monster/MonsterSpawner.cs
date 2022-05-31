@@ -17,15 +17,12 @@ public class MonsterSpawner : MonoBehaviourPun
         if (PhotonNetwork.IsMasterClient)
         {
             GameObject monster = PhotonNetwork.Instantiate(monsterNameInResources, this.transform.position, Quaternion.identity, 0) as GameObject;
-            photonView.RPC("SetMonsterSpawnerPosition", RpcTarget.All);
-        }
-        
-    }
-    [PunRPC]
-    void SetMonsterSpawnerPosition()
-    {
 
+            monster.GetComponent<Monster>().spawnerPosition = this.transform;
+        }
+    
     }
+    
 
     // Update is called once per frame
     void Update()

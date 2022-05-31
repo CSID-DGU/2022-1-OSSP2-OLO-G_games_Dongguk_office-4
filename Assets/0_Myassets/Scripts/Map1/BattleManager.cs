@@ -10,6 +10,7 @@ public class BattleManager : MonoBehaviourPun
     int myMp;
     private void Awake()
     {
+    
         if (instance == null)
         {
             instance = this;
@@ -18,11 +19,12 @@ public class BattleManager : MonoBehaviourPun
         {
             Destroy(gameObject);
         }
+      
     }
 
     public void DecreaseCharacterHP(int amount)
     {
-        if (amount > 0)
+        if (amount > 0&&!myCharacter.GetComponent<Character>().isDead)
         {
             DataMangaer.instance.gameStat.nowHp -= amount;
             if (DataMangaer.instance.gameStat.nowHp <= 0&&!myCharacter.GetComponent<Character>().isDead)
@@ -36,6 +38,7 @@ public class BattleManager : MonoBehaviourPun
         }
        
         InGameUIManager.instance.UpdateStatUI();
+        
     }
 
     public void CharacterDie()

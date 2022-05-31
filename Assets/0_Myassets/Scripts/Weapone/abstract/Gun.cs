@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public abstract class Gun : Weapone
 {
@@ -20,10 +21,21 @@ public abstract class Gun : Weapone
         firedBullet.GetComponent<SpriteRenderer>().flipX = this.transform.parent.parent.transform.localScale.x > 0 ? true : false;
         //firedBullet.transform.localScale = this.transform.parent.parent.transform.localScale.x > 0 ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
         firedBullet.GetComponent<Bullet>().SetTargetPosition(mouse = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f)));
-        firedBullet.GetComponent<Bullet>().ownerCharacter = nowUsingCharacter;
+
+        photonView.RPC("SetBulletOwner", RpcTarget.All, firedBullet.GetPhotonView().ViewID, nowUsingCharacter.GetPhotonView().ViewID);
+      
         firedBullet.GetComponent<Bullet>().damage = DataMangaer.instance.gameStat.finalPhysicAtk+equipData.getDamage();
         firedBullet.GetComponent<Bullet>().atkType = AtkType.physic;//물리 공격임을 명시
+        
+    }
 
+
+
+    [PunRPC]
+    public void SetBulletOwner(int bulletID,int characterID)
+    {
+        PhotonView.Find(bulletID).GetComponent<Bullet>().ownerCharacter = PhotonView.Find(characterID).gameObject;
+        PlayFireSound();
     }
 
     float angle;
