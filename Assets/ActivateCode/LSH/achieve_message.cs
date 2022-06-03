@@ -23,7 +23,7 @@
 //    {
 //        SetText();
 //    }
-    
+
 //    void SetText()
 //    {
 //        if (playtime == 0)
