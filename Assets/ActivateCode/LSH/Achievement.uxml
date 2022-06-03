@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Assets/ActivateCode/LSH/Achievement.uss?fileID=7433441132597879392&amp;guid=6657e5c6c9957ec41a54dc78bbf9a4f6&amp;type=3#Achievement" />
+    <ui:VisualElement class="ui" style="height: 453px; visibility: visible; justify-content: space-around; border-left-color: rgb(56, 56, 56); border-right-color: rgb(42, 42, 42); border-top-color: rgb(56, 56, 56); border-bottom-color: rgb(56, 56, 56); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;">
+        <ui:Label text="....를 달성했습니다." display-tooltip-when-elided="true" style="height: 42px; -unity-text-align: middle-center; justify-content: space-around; -unity-font-style: bold; border-left-color: rgb(103, 145, 60); border-right-color: rgb(103, 145, 60); border-top-color: rgb(103, 145, 60); border-bottom-color: rgb(103, 145, 60); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px;" />
+    </ui:VisualElement>
+</ui:UXML>
