@@ -78,7 +78,7 @@ namespace ActiveCode.CH
 
             foreach (var i in GameObject.FindGameObjectsWithTag("Character"))
             {
-                if (Vector2.Distance(i.transform.position, transform.position) < canSearchDistance)
+                if (Vector2.Distance(i.transform.position, transform.position) < canSearchDistance&&!i.GetComponent<Character>().isDead)
                 {
                     target = i;
                     

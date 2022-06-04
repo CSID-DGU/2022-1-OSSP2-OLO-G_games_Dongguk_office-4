@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Revolver_1 : Gun
+public class Staff_40 : Gun
 {
     protected override void Fire()
     {
@@ -10,7 +10,14 @@ public class Revolver_1 : Gun
         {
             return;
         }
-        base.Fire();
+        if (DataMangaer.instance.gameStat.nowMp >= 10)
+        {
+            DataMangaer.instance.gameStat.nowMp -= 10;
+            InGameUIManager.instance.UpdateStatUI();
+            base.Fire();
+        }
+      
+
         Debug.Log("fire");
     }
 
@@ -21,9 +28,9 @@ public class Revolver_1 : Gun
             return;
         }
         base.Awake();
-        bulletName = "Revolver_1_Bullet";
-        isNeedRotation = true;
-        fireRate = 0.5f;
+        bulletName = "StaffEffect";
+        isNeedRotation = true;        
+        fireRate = 1.2f;
     }
 
     protected override void UpdateFunc()

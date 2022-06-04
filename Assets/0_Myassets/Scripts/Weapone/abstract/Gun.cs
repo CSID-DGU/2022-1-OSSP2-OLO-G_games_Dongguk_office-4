@@ -8,6 +8,7 @@ public abstract class Gun : Weapone
     public Transform bulletPos;//?????? ???? ?? ????
     public GameObject bullet;//???? ??????
     public string bulletName;
+    public bool isNeedRotation;
     protected override void Fire()
     {
 
@@ -48,25 +49,29 @@ public abstract class Gun : Weapone
     protected override void Update()
     {
         base.Update();
+      
         if (!photonView.IsMine)
         {
             return;
         }
-    
-        target = nowUsingCharacter.transform.position;
-        mouse = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y,10.0f));
-        if (this.transform.parent.parent.transform.localScale.x >= 0)
+
+        if (isNeedRotation)
         {
-            angle = Mathf.Atan2(mouse.y - target.y, mouse.x - target.x) * Mathf.Rad2Deg;
+            target = nowUsingCharacter.transform.position;
+            mouse = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f));
+            if (this.transform.parent.parent.transform.localScale.x >= 0)
+            {
+                angle = Mathf.Atan2(mouse.y - target.y, mouse.x - target.x) * Mathf.Rad2Deg;
+            }
+            else
+            {
+                angle = Mathf.Atan2(mouse.y - target.y, mouse.x - target.x) * Mathf.Rad2Deg + 180;
+            }
+
+
+
+            this.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
-        else
-        {
-            angle = Mathf.Atan2(mouse.y - target.y, mouse.x - target.x) * Mathf.Rad2Deg+180;
-        }
-       
-        
-        
-        this.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
     }
     

@@ -57,6 +57,19 @@ public class DataMangaer : MonoBehaviour
         UpdateStat();
 
     }
+    public void ClearInventoryWhenDead()
+    {
+        //캐릭터 죽었을 때 인벤 초기화
+        userData.equipInventory.Clear();
+        userData.consumeInventory.Clear();
+        nowEquipData.Clear();
+        int rNum = Random.Range(0, 2);
+        if (rNum == 0)
+        {
+            userData.savedNpcList.Clear();
+        }        
+        UpdateStat();
+    }
     private void Start()
     {
 
@@ -220,6 +233,13 @@ public class PlayerEquipData
     public EquipData amor;//갑옷
     public EquipData ring;//반지
 
+    public void Clear()
+    {
+        weapon = null;
+        head = null;
+        amor = null;
+        ring = null;
+    }
     public void LoadData()
     {
       

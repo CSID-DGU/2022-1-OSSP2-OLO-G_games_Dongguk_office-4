@@ -1022,7 +1022,7 @@ Canvas:
   m_GameObject: {fileID: 192335572}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 269670909}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -9034,7 +9034,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &269670911
 MonoBehaviour:
@@ -9120,7 +9120,7 @@ Canvas:
   m_GameObject: {fileID: 273412392}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 269670909}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -9151,7 +9151,7 @@ RectTransform:
   - {fileID: 612788240}
   - {fileID: 1935449579}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -38910,7 +38910,7 @@ MonoBehaviour:
     itemType: 0
     isNowEquip: 0
     reinforcedCount: 0
-    weaponBaseDamage: 3
+    weaponBaseDamage: 20
     weaponBaseAtkSpeed: 1
     addHp: 0
     addMp: 60
@@ -38961,12 +38961,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: a5479e2714d38c64b9be5c9e8944b6cd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b1295eeb2de466f41bb7ca407b6f60d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 0.9375, y: 0.9375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
