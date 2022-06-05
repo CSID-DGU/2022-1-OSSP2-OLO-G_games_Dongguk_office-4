@@ -34,6 +34,7 @@ public class Map_1_Manager : MonoBehaviourPun
         myCharacter = Photon.Pun.PhotonNetwork.Instantiate("Character1", Vector3.zero, Quaternion.identity, 0) as GameObject;
         myCharacter.transform.position = characterStartPositions[DataMangaer.instance.inGameIndex].position;
         BattleManager.instance.myCharacter = myCharacter;
+        myCharacter.transform.Find("Arrow").gameObject.SetActive(true);
 
         setWeapon();
         //
