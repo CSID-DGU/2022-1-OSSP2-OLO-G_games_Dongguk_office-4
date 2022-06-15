@@ -533,9 +533,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ConsumptionShopManager, Assembly-CSharp
-        m_MethodName: BuyItems
+      - m_Target: {fileID: 1319522791}
+        m_TargetAssemblyTypeName: ComsumTemp, Assembly-CSharp
+        m_MethodName: Purchase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9176,6 +9176,8 @@ MonoBehaviour:
   hp_text: {fileID: 556360271}
   mp_text: {fileID: 403302113}
   inventoryPanel: {fileID: 2006939990}
+  have_hp_potion_text: {fileID: 431009019}
+  have_mp_potion_text: {fileID: 1574050666}
 --- !u!114 &273412399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9673,6 +9675,18 @@ RectTransform:
   m_AnchoredPosition: {x: -699, y: 97}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &380311381 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 283286722487725962, guid: 3395077c535eb1f4a963025adc168851,
+    type: 3}
+  m_PrefabInstance: {fileID: 1719705955}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &402144277
 GameObject:
   m_ObjectHideFlags: 0
@@ -15257,7 +15271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &612788240
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17021,6 +17035,8 @@ MonoBehaviour:
       dex: 0
       intelligent: 0
       luck: 0
+    haveHpAmount: 0
+    haveMpAmount: 0
     equipInventory: []
     savedNpcList: 
   testObj: {fileID: 1067318160}
@@ -17534,6 +17550,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1283710642}
     m_Modifications:
+    - target: {fileID: 283286721277824037, guid: 3395077c535eb1f4a963025adc168851,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d6469137f4208144bbfdb6c4651b3bcf,
+        type: 3}
+    - target: {fileID: 283286721430678257, guid: 3395077c535eb1f4a963025adc168851,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1319522791}
+    - target: {fileID: 283286721430678257, guid: 3395077c535eb1f4a963025adc168851,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AddHpPotion
+      objectReference: {fileID: 0}
+    - target: {fileID: 283286721430678257, guid: 3395077c535eb1f4a963025adc168851,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ComsumTemp, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 283286721479623144, guid: 3395077c535eb1f4a963025adc168851,
         type: 3}
       propertyPath: m_Name
@@ -17643,6 +17680,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 283286722246543078, guid: 3395077c535eb1f4a963025adc168851,
+        type: 3}
+      propertyPath: m_text
+      value: "5\uACE8\uB4DC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 283286722628959911, guid: 3395077c535eb1f4a963025adc168851,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1319522791}
+    - target: {fileID: 283286722628959911, guid: 3395077c535eb1f4a963025adc168851,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DecreaseHpPotion
+      objectReference: {fileID: 0}
+    - target: {fileID: 283286722628959911, guid: 3395077c535eb1f4a963025adc168851,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ComsumTemp, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3395077c535eb1f4a963025adc168851, type: 3}
@@ -30502,6 +30559,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1188660901}
   m_CullTransparentMesh: 1
+--- !u!114 &1202725206 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 283286722487725962, guid: 3395077c535eb1f4a963025adc168851,
+    type: 3}
+  m_PrefabInstance: {fileID: 1100477326}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1231122336
 GameObject:
   m_ObjectHideFlags: 0
@@ -31082,6 +31151,7 @@ GameObject:
   - component: {fileID: 1319522788}
   - component: {fileID: 1319522790}
   - component: {fileID: 1319522789}
+  - component: {fileID: 1319522791}
   m_Layer: 5
   m_Name: ConsumptionItemShopPanel
   m_TagString: Untagged
@@ -31152,6 +31222,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1319522787}
   m_CullTransparentMesh: 1
+--- !u!114 &1319522791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319522787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e237af38f6f5f4db0d7beb95907f35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wantBuyHpAmountText: {fileID: 1202725206}
+  wantBuyMpAmountText: {fileID: 380311381}
+  allPriceText: {fileID: 1526076578}
 --- !u!1 &1323119038
 GameObject:
   m_ObjectHideFlags: 0
@@ -34773,6 +34858,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1283710642}
     m_Modifications:
+    - target: {fileID: 283286721277824037, guid: 3395077c535eb1f4a963025adc168851,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9a10870fe07272d46926c84fcbec629a,
+        type: 3}
+    - target: {fileID: 283286721430678257, guid: 3395077c535eb1f4a963025adc168851,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1319522791}
+    - target: {fileID: 283286721430678257, guid: 3395077c535eb1f4a963025adc168851,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AddMpPotion
+      objectReference: {fileID: 0}
+    - target: {fileID: 283286721430678257, guid: 3395077c535eb1f4a963025adc168851,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ComsumTemp, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 283286721479623144, guid: 3395077c535eb1f4a963025adc168851,
         type: 3}
       propertyPath: m_Name
@@ -34882,6 +34988,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 283286722246543078, guid: 3395077c535eb1f4a963025adc168851,
+        type: 3}
+      propertyPath: m_text
+      value: "10\uACE8\uB4DC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 283286722628959911, guid: 3395077c535eb1f4a963025adc168851,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1319522791}
+    - target: {fileID: 283286722628959911, guid: 3395077c535eb1f4a963025adc168851,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DecreaseMpPotion
+      objectReference: {fileID: 0}
+    - target: {fileID: 283286722628959911, guid: 3395077c535eb1f4a963025adc168851,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ComsumTemp, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3395077c535eb1f4a963025adc168851, type: 3}

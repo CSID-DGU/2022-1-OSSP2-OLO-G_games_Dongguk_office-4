@@ -6,11 +6,12 @@ using Photon.Realtime;
 using Photon;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-;
 
 public class Map_1_Manager : MonoBehaviourPun
 {
     public GameObject gameClearPanel;
+    public GameObject bossHpBar;
+    public GameObject bpssHpGauge;
     public Transform[] characterStartPositions;
     public GameObject goldPrefab;
     public static Map_1_Manager instance;

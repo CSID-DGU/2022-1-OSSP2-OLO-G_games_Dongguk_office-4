@@ -144,6 +144,7 @@ public class DataMangaer : MonoBehaviour
         userData = JsonToOject(PlayerPrefs.GetString("playerData"));
         nowEquipData.LoadData();
         InGameUIManager.instance.UpdateGold();
+        InGameUIManager.instance.UpdatePotionUi();
     }
   
    
@@ -194,8 +195,10 @@ public class UserData
     public int haveMoney;//소지 재화
 
     public CharacterStatData stat;//캐릭터 기본 스탯
-   
- 
+
+    public int haveHpAmount;
+    public int haveMpAmount;
+
     public List<EquipData> equipInventory = new List<EquipData>();//장비 인벤토리
     public List<ConsumeData> consumeInventory = new List<ConsumeData>();//소비 아이템 인벤토리
 

@@ -15,6 +15,10 @@ public class InGameUIManager : MonoBehaviour
     public GameObject inventoryPanel;
 
     public static InGameUIManager instance;
+
+    public Text have_hp_potion_text;
+    public Text have_mp_potion_text;
+
     private void Awake()
     {
         if (!instance)
@@ -32,6 +36,11 @@ public class InGameUIManager : MonoBehaviour
     public void UpdateGold()
     {
         money_text.text= DataMangaer.instance.userData.haveMoney.ToString();
+    }
+    public void UpdatePotionUi()
+    {
+        have_hp_potion_text.text ="X"+DataMangaer.instance.userData.haveHpAmount;
+        have_mp_potion_text.text ="X" + DataMangaer.instance.userData.haveMpAmount;
     }
 
     public void PopUpPanel(GameObject panel)

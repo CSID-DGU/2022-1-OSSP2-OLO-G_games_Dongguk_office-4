@@ -8,18 +8,19 @@ namespace ActiveCode.CH
 {
     public class Boss : Monster
     {
+
         
-       
         public float speed = 5f;
         
         protected Rigidbody2D rb;
         protected SpriteRenderer sr;
         protected PhotonView pv;
 
+        float maxHp;
         protected override void Awake()
         {
             base.Awake();
-
+            maxHp = status.hp;
             this.rb = this.GetComponent<Rigidbody2D>();
             this.sr = this.GetComponent<SpriteRenderer>();
             this.pv = this.GetComponent<PhotonView>();
@@ -72,8 +73,10 @@ namespace ActiveCode.CH
             Destroy(this.gameObject);
         }
         bool isPatternStarted = false;
+        
         public void StartPatternCoroutine()
         {
+            Map_1_Manager.instance.bossHpBar.SetActive(true);
             if (photonView.IsMine&& isPatternStarted)
             {
                 StartCoroutine(DoPatternCo());
@@ -122,6 +125,7 @@ namespace ActiveCode.CH
                 Map_1_Manager.instance.CheckAllMap1MonsterDead();
                 Destroy(gameObject);
             }
+            Map_1_Manager.instance.bpssHpGauge.GetComponent<UnityEngine.UI.Image>().fillAmount = status.hp / maxHp;
         }
 
 

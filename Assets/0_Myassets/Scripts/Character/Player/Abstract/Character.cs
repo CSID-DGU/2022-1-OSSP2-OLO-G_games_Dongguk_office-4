@@ -33,6 +33,7 @@ public abstract class Character : MonoBehaviourPun
         }
         if (!photonView.IsMine)
         {
+            this.transform.Find("HitBox").gameObject.SetActive(false);
             return;
         }
         else

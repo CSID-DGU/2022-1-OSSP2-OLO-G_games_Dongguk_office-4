@@ -43,6 +43,46 @@ public class BattleManager : MonoBehaviourPun
         InGameUIManager.instance.UpdateStatUI();
         
     }
+    public void IncreaseCharacterHp(int amount)
+    {
+        DataMangaer.instance.gameStat.nowHp += 100;
+        if (DataMangaer.instance.gameStat.nowHp > DataMangaer.instance.gameStat.maxHp)
+        {
+            DataMangaer.instance.gameStat.nowHp = DataMangaer.instance.gameStat.maxHp;
+        }
+    }
+    public void IncreaseCharacterMp(int amount)
+    {
+        DataMangaer.instance.gameStat.nowMp += 50;
+        if (DataMangaer.instance.gameStat.nowMp > DataMangaer.instance.gameStat.maxMp)
+        {
+            DataMangaer.instance.gameStat.nowMp = DataMangaer.instance.gameStat.maxMp;
+        }
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if (DataMangaer.instance.userData.haveHpAmount > 0)
+            {
+                DataMangaer.instance.userData.haveHpAmount--;
+                IncreaseCharacterHp(100);
+                InGameUIManager.instance.UpdatePotionUi();
+                InGameUIManager.instance.UpdateStatUI();
+            }
+            
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (DataMangaer.instance.userData.haveMpAmount > 0)
+            {
+                DataMangaer.instance.userData.haveMpAmount--;
+                IncreaseCharacterMp(50);
+                InGameUIManager.instance.UpdatePotionUi();
+                InGameUIManager.instance.UpdateStatUI();
+            }
+        }
+    }
     public void PopUpYouDiePanel()
     {
         StartCoroutine(FadeInGameOverPanel());
