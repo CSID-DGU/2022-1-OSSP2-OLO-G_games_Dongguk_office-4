@@ -15863,7 +15863,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &761229908
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15882,8 +15882,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 149, y: 77.140015}
-  m_SizeDelta: {x: 160, y: 154.27002}
+  m_AnchoredPosition: {x: 45.602722, y: 34.80493}
+  m_SizeDelta: {x: 91.2055, y: 69.5998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &761229909
 MonoBehaviour:
@@ -16243,7 +16243,7 @@ MonoBehaviour:
     itemType: 0
     isNowEquip: 0
     reinforcedCount: 0
-    weaponBaseDamage: 3
+    weaponBaseDamage: 500
     weaponBaseAtkSpeed: 1
     addHp: 0
     addMp: 0

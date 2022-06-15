@@ -12,6 +12,7 @@ TagManager:
   - Monster
   - InGameUI
   - Projection
+  - Wall
   layers:
   - Default
   - TransparentFX

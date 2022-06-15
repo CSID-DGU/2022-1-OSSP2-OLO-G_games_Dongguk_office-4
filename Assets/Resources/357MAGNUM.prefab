@@ -231,6 +231,7 @@ MonoBehaviour:
   bulletPos: {fileID: 8418653544216333154}
   bullet: {fileID: 6767782207807039045, guid: 1797600622327764e9fdf07e88ae9a8f, type: 3}
   bulletName: 
+  isNeedRotation: 0
 --- !u!114 &-7129536623839854192
 MonoBehaviour:
   m_ObjectHideFlags: 0

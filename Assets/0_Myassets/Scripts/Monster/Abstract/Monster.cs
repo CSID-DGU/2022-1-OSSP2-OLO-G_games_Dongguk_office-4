@@ -98,7 +98,7 @@ namespace ActiveCode.CH
         }
 
  
-        public void DecreaseHp(int damage)
+        public virtual void DecreaseHp(int damage)
         {
             if (damage > 0)
             {
@@ -108,6 +108,8 @@ namespace ActiveCode.CH
             if (status.hp <= 0)
             {
                 OnDie();
+                Map_1_Manager.instance.Map1Monsters.Remove(gameObject);
+                Map_1_Manager.instance.CheckAllMap1MonsterDead();
                 Destroy(gameObject);
             }
             
@@ -160,8 +162,9 @@ namespace ActiveCode.CH
             {
                 // 1/2확률로 골드 드롭
                 GameObject gold = Instantiate(Map_1_Manager.instance.goldPrefab) as GameObject;
+                
                 gold.GetComponent<DroppedGold>().goldAmount = goldValue;
-                gold.transform.position = this.transform.position;
+                gold.transform.position = new Vector3(this.transform.position.x,transform.position.y,0);
             }
             
         }

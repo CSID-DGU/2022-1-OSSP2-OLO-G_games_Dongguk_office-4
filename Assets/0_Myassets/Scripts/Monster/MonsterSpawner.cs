@@ -8,6 +8,8 @@ public class MonsterSpawner : MonoBehaviourPun
 {
     [SerializeField]
     string monsterNameInResources;
+
+    public string area;
     private void Awake()
     {
         
@@ -19,6 +21,11 @@ public class MonsterSpawner : MonoBehaviourPun
             GameObject monster = PhotonNetwork.Instantiate(monsterNameInResources, this.transform.position, Quaternion.identity, 0) as GameObject;
 
             monster.GetComponent<Monster>().spawnerPosition = this.transform;
+            if (area == "map1")
+            {
+                Map_1_Manager.instance.Map1Monsters.Add(monster);
+            }
+
         }
     
     }

@@ -5,14 +5,43 @@ using Photon.Pun;
 using Photon.Realtime;
 using Photon;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+;
 
 public class Map_1_Manager : MonoBehaviourPun
 {
+    public GameObject gameClearPanel;
     public Transform[] characterStartPositions;
     public GameObject goldPrefab;
     public static Map_1_Manager instance;
+    public GameObject InteractableGate;
+    public List<GameObject> Map1Monsters;
+    public bool isMap1Cleared;
+    
+    public void GameClear()
+    {
+        gameClearPanel.SetActive(true);
+    }
+    public void GoLobby()
+    {
+        PhotonNetwork.LeaveRoom();
+        
+        SceneManager.LoadScene("Lobby");
+
+
+    }
+    public void CheckAllMap1MonsterDead()
+    {
+        if (Map1Monsters.Count == 0)
+        {
+            InteractableGate.SetActive(false);
+            isMap1Cleared = true;
+        }
+    }
     private void Awake()
     {
+        isMap1Cleared = false;
+        Map1Monsters = new List<GameObject>();
         if (instance == null)
         {
             instance = this;

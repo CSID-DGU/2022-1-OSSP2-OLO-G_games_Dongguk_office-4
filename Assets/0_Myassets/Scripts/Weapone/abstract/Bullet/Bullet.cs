@@ -53,21 +53,24 @@ public abstract class Bullet : MonoBehaviourPun
     }
 
 
-  
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Monster")
         {
-           
+
             Debug.Log("총알 적과 충돌");
             if (photonView.IsMine)
             {
                 photonView.RPC("OnTriggerWithMonster", RpcTarget.All, collision.gameObject.GetComponent<Monster>().photonView.ViewID, damage);
-         
-                
+
             }
-            
-          
+
+        }
+        if (collision.tag == "Wall")
+        {
+            Debug.Log("총알 벽과 충돌");
+            Destroy(gameObject);
         }
         
     }

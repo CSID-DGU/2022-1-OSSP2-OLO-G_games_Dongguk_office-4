@@ -22,6 +22,7 @@ public abstract class Character : MonoBehaviourPun
     protected void Start()
     {
         this.GetComponent<Rigidbody2D>().sleepMode = RigidbodySleepMode2D.NeverSleep;
+        
         Debug.Log("character Instantiated"+photonView.IsMine);
         if (!PhotonNetwork.InRoom)
         {
@@ -32,7 +33,6 @@ public abstract class Character : MonoBehaviourPun
         }
         if (!photonView.IsMine)
         {
-
             return;
         }
         else
@@ -62,7 +62,6 @@ public abstract class Character : MonoBehaviourPun
         {
             return;
         }
-
         CharacterMoveController();
     }
 
@@ -83,8 +82,7 @@ public abstract class Character : MonoBehaviourPun
             if (nowEquipedWeapones[0] != null)
             {
                 nowEquipedWeapones[0].SetActive(false);
-            }
-            
+            }            
         }
         else
         {
@@ -102,13 +100,7 @@ public abstract class Character : MonoBehaviourPun
                 nowEquipedWeapones[1].SetActive(false);
             }
         }
-
-
-       
     }
-
-
-    
 
     int left, right, up, down;
     float offset = 0f;
